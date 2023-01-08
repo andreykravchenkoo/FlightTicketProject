@@ -1,12 +1,16 @@
 package com.example.FlightTicketProject.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "PAYMENTS")
 public class Payment {
 
@@ -22,4 +26,10 @@ public class Payment {
 
     @Column(name = "date")
     private LocalDate date;
+
+    public Payment(Ticket ticket, double price, LocalDate date) {
+        this.ticket = ticket;
+        this.price = price;
+        this.date = date;
+    }
 }

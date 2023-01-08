@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "Test controller")
+@Api(tags = "Test flight controller")
 @RequestMapping("/api/flights")
 @RestController
 public class FlightController {

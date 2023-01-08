@@ -1,6 +1,8 @@
 package com.example.FlightTicketProject.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "FLIGHTS")
 public class Flight {
 
@@ -33,6 +37,14 @@ public class Flight {
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private final Set<Ticket> tickets = new HashSet<>();
+
+    public Flight(String origin, String destination, LocalDate departure, LocalDate arrival, double price) {
+        this.origin = origin;
+        this.destination = destination;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.price = price;
+    }
 
     public void addTicket(Ticket ticket) {
         tickets.add(ticket);
