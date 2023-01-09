@@ -1,5 +1,6 @@
 package com.example.FlightTicketProject.controller;
 
+import com.example.FlightTicketProject.dto.UserDTO;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.service.UserService;
 import io.swagger.annotations.Api;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Api("Test user controller")
 @RequestMapping("/api/users")
@@ -20,13 +22,44 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public List<User> getAllUsers() {
-        return userService.findAll();
+    @GetMapping("")
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userService.findAll();
+
+        return users.stream()
+                .map(UserDTO::new)
+                .collect(Collectors.toList());
     }
 
-    @PostMapping("/")
-    public User saveUser(@RequestBody User user) {
-        return userService.save(user);
+    @GetMapping("/{userId}")
+    public UserDTO getUserById(@PathVariable long userId) {
+        User userById = userService.findById(userId);
+
+        return convertToDTO(userById);
+    }
+
+    @PostMapping("")
+    public UserDTO saveUser(@RequestBody UserDTO userDTO) {
+        User user = convertToEntity(userDTO);
+
+        User savedUser = userService.save(user);
+
+        return convertToDTO(savedUser);
+    }
+
+    private User convertToEntity(UserDTO userDTO) {
+        User user = new User();
+
+        user.setId(userDTO.getId());
+        user.setName(userDTO.getName());
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+
+        return user;
+    }
+
+    private UserDTO convertToDTO(User user) {
+        return new UserDTO(user);
     }
 }

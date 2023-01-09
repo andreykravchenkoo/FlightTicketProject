@@ -1,5 +1,6 @@
 package com.example.FlightTicketProject.controller;
 
+import com.example.FlightTicketProject.dto.TicketDTO;
 import com.example.FlightTicketProject.entity.Ticket;
 import com.example.FlightTicketProject.service.TicketService;
 import io.swagger.annotations.Api;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Api("Test ticket controller")
 @RequestMapping("/api/tickets")
@@ -20,13 +22,43 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping("/")
-    public List<Ticket> getAllTickets() {
-        return ticketService.findAll();
+    @GetMapping("")
+    public List<TicketDTO> getAllTickets() {
+        List<Ticket> tickets = ticketService.findAll();
+
+        return tickets.stream()
+                .map(TicketDTO::new)
+                .collect(Collectors.toList());
     }
 
-    @PostMapping("/")
-    public Ticket saveTicket(@RequestBody Ticket ticket) {
-        return ticketService.save(ticket);
+    @GetMapping("/{ticketId}")
+    public TicketDTO getTicketById(@PathVariable long ticketId) {
+        Ticket ticketById = ticketService.findById(ticketId);
+
+        return convertToDTO(ticketById);
+    }
+
+    @PostMapping("")
+    public TicketDTO saveTicket(@RequestBody TicketDTO ticketDTO) {
+        Ticket ticket = convertToEntity(ticketDTO);
+
+        Ticket savedTicket = ticketService.save(ticket);
+
+        return convertToDTO(savedTicket);
+    }
+
+    private Ticket convertToEntity(TicketDTO ticketDTO) {
+        Ticket ticket = new Ticket();
+
+        ticket.setId(ticketDTO.getId());
+        ticket.setOwner(ticketDTO.getOwner());
+        ticket.setSeat(ticketDTO.getSeat());
+        ticket.setStatus(ticketDTO.getStatus());
+
+        return ticket;
+    }
+
+    private TicketDTO convertToDTO(Ticket ticket) {
+        return new TicketDTO(ticket);
     }
 }

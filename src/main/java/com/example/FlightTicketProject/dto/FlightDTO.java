@@ -2,23 +2,25 @@ package com.example.FlightTicketProject.dto;
 
 import com.example.FlightTicketProject.entity.Flight;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
+@NoArgsConstructor
 public class FlightDTO {
 
-    private final long id;
+    private long id;
 
-    private final String origin;
+    private String origin;
 
-    private final String destination;
+    private String destination;
 
-    private final LocalDate departure;
+    private LocalDate departure;
 
-    private final LocalDate arrival;
+    private LocalDate arrival;
 
-    private final double price;
+    private double price;
 
     public FlightDTO(Flight flight) {
         this.id = flight.getId();

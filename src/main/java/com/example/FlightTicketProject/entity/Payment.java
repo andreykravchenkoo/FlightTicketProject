@@ -18,18 +18,25 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(mappedBy = "payment")
-    private Ticket ticket;
+    @Column(name = "OWNER")
+    private String owner;
 
-    @Column(name = "price")
-    private double price;
+    @Column(name = "SUM")
+    private double sum;
 
-    @Column(name = "date")
+    @Column(name = "DATE")
     private LocalDate date;
 
-    public Payment(Ticket ticket, double price, LocalDate date) {
-        this.ticket = ticket;
-        this.price = price;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private PaymentStatus status;
+
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    private Ticket ticket;
+
+    public Payment(String owner, double sum, LocalDate date) {
+        this.owner = owner;
+        this.sum = sum;
         this.date = date;
     }
 }

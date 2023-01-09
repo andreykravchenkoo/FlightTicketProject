@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -36,7 +36,7 @@ public class Flight {
     private double price;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
-    private final Set<Ticket> tickets = new HashSet<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Flight(String origin, String destination, LocalDate departure, LocalDate arrival, double price) {
         this.origin = origin;

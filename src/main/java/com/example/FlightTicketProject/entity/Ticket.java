@@ -17,21 +17,31 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "OWNER")
+    private String owner;
+
+    @Column(name = "SEAT")
+    private String seat;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private FareClassStatus status;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "flight_id")
     private Flight flight;
 
-    public Ticket(Payment payment, User user, Flight flight) {
-        this.payment = payment;
-        this.user = user;
-        this.flight = flight;
+    public Ticket(String owner, String seat, FareClassStatus status) {
+        this.owner = owner;
+        this.seat = seat;
+        this.status = status;
     }
 }
