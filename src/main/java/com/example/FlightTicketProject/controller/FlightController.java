@@ -5,6 +5,8 @@ import com.example.FlightTicketProject.entity.Flight;
 import com.example.FlightTicketProject.service.FlightService;;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,19 +35,19 @@ public class FlightController {
     }
 
     @GetMapping("/{flightId}")
-    public FlightDTO getFlightById(@PathVariable long flightId) {
+    public ResponseEntity<FlightDTO> getFlightById(@PathVariable long flightId) {
         Flight flightById = flightService.findById(flightId);
 
-        return convertToDTO(flightById);
+        return new ResponseEntity<>(convertToDTO(flightById), HttpStatus.OK);
     }
 
     @PostMapping("")
-    public FlightDTO saveFlight(@RequestBody FlightDTO flightDTO) {
+    public ResponseEntity<FlightDTO> saveFlight(@RequestBody FlightDTO flightDTO) {
         Flight flight = convertToEntity(flightDTO);
 
         Flight savedFlight = flightService.save(flight);
 
-        return convertToDTO(savedFlight);
+        return new ResponseEntity<>(convertToDTO(savedFlight), HttpStatus.CREATED);
     }
 
     private Flight convertToEntity(FlightDTO flightDTO) {

@@ -26,7 +26,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment findById(Long paymentId) {
-        return paymentRepository.findById(paymentId).orElseThrow(() -> new PaymentNotFoundException("Payment with this ID = " + paymentId + " will not be found"));
+        return paymentRepository.findById(paymentId).orElseThrow(() -> new PaymentNotFoundException("Payment with ID = " + paymentId + " will not be found"));
     }
 
     @Override

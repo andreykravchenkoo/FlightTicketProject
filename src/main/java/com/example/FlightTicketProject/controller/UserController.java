@@ -5,6 +5,8 @@ import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,19 +34,19 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public UserDTO getUserById(@PathVariable long userId) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable long userId) {
         User userById = userService.findById(userId);
 
-        return convertToDTO(userById);
+        return new ResponseEntity<>(convertToDTO(userById), HttpStatus.OK);
     }
 
     @PostMapping("")
-    public UserDTO saveUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         User user = convertToEntity(userDTO);
 
         User savedUser = userService.save(user);
 
-        return convertToDTO(savedUser);
+        return new ResponseEntity<>(convertToDTO(savedUser), HttpStatus.CREATED);
     }
 
     private User convertToEntity(UserDTO userDTO) {

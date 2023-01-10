@@ -5,6 +5,8 @@ import com.example.FlightTicketProject.entity.Payment;
 import com.example.FlightTicketProject.service.PaymentService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,19 +34,19 @@ public class PaymentController {
     }
 
     @GetMapping("/{paymentId}")
-    public PaymentDTO getPaymentById(@PathVariable long paymentId) {
+    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable long paymentId) {
         Payment paymentById = paymentService.findById(paymentId);
 
-        return convertToDTO(paymentById);
+        return new ResponseEntity<>(convertToDTO(paymentById), HttpStatus.OK);
     }
 
     @PostMapping("")
-    public PaymentDTO savePayment(@RequestBody PaymentDTO paymentDTO) {
+    public ResponseEntity<PaymentDTO> savePayment(@RequestBody PaymentDTO paymentDTO) {
         Payment payment = convertToEntity(paymentDTO);
 
         Payment savedPayment = paymentService.save(payment);
 
-        return convertToDTO(savedPayment);
+        return new ResponseEntity<>(convertToDTO(savedPayment), HttpStatus.CREATED);
     }
 
     private Payment convertToEntity(PaymentDTO paymentDTO) {
