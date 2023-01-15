@@ -2,6 +2,7 @@ package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.FlightDTO;
 import com.example.FlightTicketProject.entity.Flight;
+import com.example.FlightTicketProject.mapper.EntityMapper;
 import com.example.FlightTicketProject.service.FlightService;;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ public class FlightController {
 
     private FlightService flightService;
 
+    private EntityMapper entityMapper;
 
     @Autowired
-    public FlightController(FlightService flightService) {
+    public FlightController(FlightService flightService, EntityMapper entityMapper) {
         this.flightService = flightService;
+        this.entityMapper = entityMapper;
     }
 
     @GetMapping("")
@@ -38,32 +41,15 @@ public class FlightController {
     public ResponseEntity<FlightDTO> getFlightById(@PathVariable long flightId) {
         Flight flightById = flightService.findById(flightId);
 
-        return new ResponseEntity<>(convertToDTO(flightById), HttpStatus.OK);
+        return new ResponseEntity<>(new FlightDTO(flightById), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<FlightDTO> saveFlight(@RequestBody FlightDTO flightDTO) {
-        Flight flight = convertToEntity(flightDTO);
+        Flight flight = entityMapper.mapFlightDTOToEntity(flightDTO);
 
         Flight savedFlight = flightService.save(flight);
 
-        return new ResponseEntity<>(convertToDTO(savedFlight), HttpStatus.CREATED);
-    }
-
-    private Flight convertToEntity(FlightDTO flightDTO) {
-        Flight flight = new Flight();
-
-        flight.setId(flightDTO.getId());
-        flight.setOrigin(flightDTO.getOrigin());
-        flight.setDestination(flightDTO.getDestination());
-        flight.setDeparture(flightDTO.getDeparture());
-        flight.setArrival(flightDTO.getArrival());
-        flight.setPrice(flightDTO.getPrice());
-
-        return flight;
-    }
-
-    private FlightDTO convertToDTO(Flight flight) {
-        return new FlightDTO(flight);
+        return new ResponseEntity<>(new FlightDTO(savedFlight), HttpStatus.CREATED);
     }
 }

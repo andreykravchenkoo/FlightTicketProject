@@ -2,6 +2,7 @@ package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.UserDTO;
 import com.example.FlightTicketProject.entity.User;
+import com.example.FlightTicketProject.mapper.EntityMapper;
 import com.example.FlightTicketProject.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,12 @@ public class UserController {
 
     private UserService userService;
 
+    private EntityMapper entityMapper;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, EntityMapper entityMapper) {
         this.userService = userService;
+        this.entityMapper = entityMapper;
     }
 
     @GetMapping("")
@@ -37,31 +41,15 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable long userId) {
         User userById = userService.findById(userId);
 
-        return new ResponseEntity<>(convertToDTO(userById), HttpStatus.OK);
+        return new ResponseEntity<>(new UserDTO(userById), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
-        User user = convertToEntity(userDTO);
+        User user = entityMapper.mapUserDTOToEntity(userDTO);
 
         User savedUser = userService.save(user);
 
-        return new ResponseEntity<>(convertToDTO(savedUser), HttpStatus.CREATED);
-    }
-
-    private User convertToEntity(UserDTO userDTO) {
-        User user = new User();
-
-        user.setId(userDTO.getId());
-        user.setName(userDTO.getName());
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-
-        return user;
-    }
-
-    private UserDTO convertToDTO(User user) {
-        return new UserDTO(user);
+        return new ResponseEntity<>(new UserDTO(savedUser), HttpStatus.CREATED);
     }
 }

@@ -2,6 +2,7 @@ package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.TicketDTO;
 import com.example.FlightTicketProject.entity.Ticket;
+import com.example.FlightTicketProject.mapper.EntityMapper;
 import com.example.FlightTicketProject.service.TicketService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,12 @@ public class TicketController {
 
     private TicketService ticketService;
 
+    private EntityMapper entityMapper;
+
     @Autowired
-    public TicketController(TicketService ticketService) {
+    public TicketController(TicketService ticketService, EntityMapper entityMapper) {
         this.ticketService = ticketService;
+        this.entityMapper = entityMapper;
     }
 
     @GetMapping("")
@@ -37,30 +41,15 @@ public class TicketController {
     public ResponseEntity<TicketDTO> getTicketById(@PathVariable long ticketId) {
         Ticket ticketById = ticketService.findById(ticketId);
 
-        return new ResponseEntity<>(convertToDTO(ticketById), HttpStatus.OK);
+        return new ResponseEntity<>(new TicketDTO(ticketById), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<TicketDTO> saveTicket(@RequestBody TicketDTO ticketDTO) {
-        Ticket ticket = convertToEntity(ticketDTO);
+        Ticket ticket = entityMapper.mapTicketDTOToEntity(ticketDTO);
 
         Ticket savedTicket = ticketService.save(ticket);
 
-        return new ResponseEntity<>(convertToDTO(savedTicket), HttpStatus.CREATED);
-    }
-
-    private Ticket convertToEntity(TicketDTO ticketDTO) {
-        Ticket ticket = new Ticket();
-
-        ticket.setId(ticketDTO.getId());
-        ticket.setOwner(ticketDTO.getOwner());
-        ticket.setSeat(ticketDTO.getSeat());
-        ticket.setStatus(ticketDTO.getStatus());
-
-        return ticket;
-    }
-
-    private TicketDTO convertToDTO(Ticket ticket) {
-        return new TicketDTO(ticket);
+        return new ResponseEntity<>(new TicketDTO(savedTicket), HttpStatus.CREATED);
     }
 }

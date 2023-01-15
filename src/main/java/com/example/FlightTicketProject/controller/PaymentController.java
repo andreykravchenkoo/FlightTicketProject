@@ -2,6 +2,7 @@ package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.PaymentDTO;
 import com.example.FlightTicketProject.entity.Payment;
+import com.example.FlightTicketProject.mapper.EntityMapper;
 import com.example.FlightTicketProject.service.PaymentService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,12 @@ public class PaymentController {
 
     private PaymentService paymentService;
 
+    private EntityMapper entityMapper;
+
     @Autowired
-    public PaymentController(PaymentService paymentService) {
+    public PaymentController(PaymentService paymentService, EntityMapper entityMapper) {
         this.paymentService = paymentService;
+        this.entityMapper = entityMapper;
     }
 
     @GetMapping("")
@@ -37,31 +41,15 @@ public class PaymentController {
     public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable long paymentId) {
         Payment paymentById = paymentService.findById(paymentId);
 
-        return new ResponseEntity<>(convertToDTO(paymentById), HttpStatus.OK);
+        return new ResponseEntity<>(new PaymentDTO(paymentById), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<PaymentDTO> savePayment(@RequestBody PaymentDTO paymentDTO) {
-        Payment payment = convertToEntity(paymentDTO);
+        Payment payment = entityMapper.mapPaymentDTOToEntity(paymentDTO);
 
         Payment savedPayment = paymentService.save(payment);
 
-        return new ResponseEntity<>(convertToDTO(savedPayment), HttpStatus.CREATED);
-    }
-
-    private Payment convertToEntity(PaymentDTO paymentDTO) {
-        Payment payment = new Payment();
-
-        payment.setId(paymentDTO.getId());
-        payment.setOwner(paymentDTO.getOwner());
-        payment.setSum(paymentDTO.getSum());
-        payment.setDate(paymentDTO.getDate());
-        payment.setStatus(paymentDTO.getPaymentStatus());
-
-        return payment;
-    }
-
-    private PaymentDTO convertToDTO(Payment payment) {
-        return new PaymentDTO(payment);
+        return new ResponseEntity<>(new PaymentDTO(savedPayment), HttpStatus.CREATED);
     }
 }
