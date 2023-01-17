@@ -8,10 +8,10 @@ values ('Andrey1', 700, current_timestamp(), 'NEW'),
        ('Andrey1',500.50, current_timestamp(),'DONE'),
        ('Andrey3',201, current_timestamp(), 'ARCHIVE');
 
-insert into users (name, username, email, password)
-values ('Andrey1', 'Andreyyyy1', '1andrik@gmail.com', '12345'),
-       ('Andrey2', 'Andreyyyy2', '2andrik@gmail.com', '14345'),
-       ('Andrey3', 'Andreyyyy3', '3andrik@gmail.com', '15345');
+insert into users (name, username, email, password, role)
+values ('Andrey1', 'Andreyyyy1', 'andrik1@gmail.com', '12345', 'ADMiN'),
+       ('Andrey2', 'Andreyyyy2', 'andrik2@gmail.com', '14345', 'USER'),
+       ('Andrey3', 'Andreyyyy3', 'andrik3@gmail.com', '15345', 'USER');
 
 insert into tickets (owner, seat, status, payment_id, user_id, flight_id)
 values ('Andrey1', '01Y', 'ECONOMY', 2, 1, 1),

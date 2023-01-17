@@ -10,21 +10,21 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "TICKETS")
+@Table(name = "tickets")
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "OWNER")
+    @Column(name = "owner")
     private String owner;
 
-    @Column(name = "SEAT")
+    @Column(name = "seat")
     private String seat;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private FareClassStatus status;
 
     @OneToOne(cascade = CascadeType.ALL)

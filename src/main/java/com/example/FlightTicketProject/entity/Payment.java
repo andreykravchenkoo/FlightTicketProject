@@ -11,24 +11,24 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "PAYMENTS")
+@Table(name = "payments")
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "OWNER")
+    @Column(name = "owner")
     private String owner;
 
-    @Column(name = "SUM")
+    @Column(name = "sum")
     private double sum;
 
-    @Column(name = "DATE")
+    @Column(name = "date")
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private PaymentStatus status;
 
     @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)

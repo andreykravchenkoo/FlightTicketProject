@@ -13,26 +13,26 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "FLIGHTS")
+@Table(name = "flights")
 public class Flight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "ORIGIN")
+    @Column(name = "origin")
     private String origin;
 
-    @Column(name = "DESTINATION")
+    @Column(name = "destination")
     private String destination;
 
-    @Column(name = "DEPARTURE")
+    @Column(name = "departure")
     private LocalDate departure;
 
-    @Column(name = "ARRIVAL")
+    @Column(name = "arrival")
     private LocalDate arrival;
 
-    @Column(name = "PRICE")
+    @Column(name = "price")
     private double price;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)

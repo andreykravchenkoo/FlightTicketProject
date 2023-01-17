@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -31,14 +31,19 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private UserRole role;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
-    public User(String name, String username, String email, String password) {
+    public User(String name, String username, String email, String password, UserRole role) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public void addTicket(Ticket ticket) {
