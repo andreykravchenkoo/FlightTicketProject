@@ -1,5 +1,6 @@
 package com.example.FlightTicketProject.entity;
 
+import com.example.FlightTicketProject.mapper.response.ExternalApiFlightResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,18 +29,21 @@ public class Flight {
     private String destination;
 
     @Column(name = "departure")
-    private LocalDate departure;
+    private Date departure;
 
     @Column(name = "arrival")
-    private LocalDate arrival;
+    private Date arrival;
 
     @Column(name = "price")
     private double price;
 
+    @Column(name = "carrier")
+    private String carrier;
+
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
-    public Flight(String origin, String destination, LocalDate departure, LocalDate arrival, double price) {
+    public Flight(String origin, String destination, Date departure, Date arrival, double price) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;
