@@ -2,7 +2,7 @@ package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.TicketDTO;
 import com.example.FlightTicketProject.entity.Ticket;
-import com.example.FlightTicketProject.mapper.EntityMapper;
+import com.example.FlightTicketProject.mapper.entity.EntityMapper;
 import com.example.FlightTicketProject.service.TicketService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
