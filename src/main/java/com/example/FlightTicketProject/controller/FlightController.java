@@ -5,10 +5,9 @@ import com.example.FlightTicketProject.entity.Flight;
 import com.example.FlightTicketProject.mapper.entity.EntityMapper;
 import com.example.FlightTicketProject.mapper.response.ExternalApiFlightResponse;
 import com.example.FlightTicketProject.service.FlightService;;
-import com.example.FlightTicketProject.service.rest.RestIntegrationService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.FlightTicketProject.service.rest.FlightsApiService;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,25 +15,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Api(tags = "Test flight controller")
 @RequestMapping("/api/flights")
 @RestController
 public class FlightController {
 
-    private FlightService flightService;
+    private final FlightService flightService;
 
-    private EntityMapper entityMapper;
+    private final EntityMapper entityMapper;
 
-    private RestIntegrationService restIntegrationService;
+    private final FlightsApiService flightsApiService;
 
-    @Autowired
-    public FlightController(FlightService flightService, EntityMapper entityMapper, RestIntegrationService restIntegrationService) {
-        this.flightService = flightService;
-        this.entityMapper = entityMapper;
-        this.restIntegrationService = restIntegrationService;
-    }
-
-    @GetMapping("")
+    @GetMapping("/search-all-saved")
     public List<FlightDTO> getAllFlights() {
         List<Flight> flights = flightService.findAll();
 
@@ -43,26 +36,26 @@ public class FlightController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{adults}/{origin}/{destination}/{departureDate}")
-    public List<FlightDTO> getFlightsByInfo(@PathVariable String adults,
-                                            @PathVariable String origin,
-                                            @PathVariable String destination,
-                                            @PathVariable String departureDate) throws JsonProcessingException {
-        List<ExternalApiFlightResponse.Item> flights = restIntegrationService.findFlightsByInfo(adults, origin, destination, departureDate);
+    @GetMapping("/search-in-flightlabs")
+    public List<FlightDTO> getFlightsByInfo(@RequestParam(value = "adults") String adults,
+                                            @RequestParam(value = "origin") String origin,
+                                            @RequestParam(value = "destination") String destination,
+                                            @RequestParam(value = "departureDate") String departureDate) {
+        List<ExternalApiFlightResponse.Item> flights = flightsApiService.findFlightsByInfo(adults, origin, destination, departureDate);
 
         return flights.stream()
                 .map(FlightDTO::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    @GetMapping("/{flightId}")
-    public ResponseEntity<FlightDTO> getFlightById(@PathVariable long flightId) {
+    @GetMapping("/search-saved")
+    public ResponseEntity<FlightDTO> getFlightById(@RequestParam String flightId) {
         Flight flightById = flightService.findById(flightId);
 
         return new ResponseEntity<>(new FlightDTO(flightById), HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping("/save")
     public ResponseEntity<FlightDTO> saveFlight(@RequestBody FlightDTO flightDTO) {
         Flight flight = entityMapper.mapFlightDTOToEntity(flightDTO);
 

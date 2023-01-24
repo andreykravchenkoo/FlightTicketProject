@@ -4,20 +4,16 @@ import com.example.FlightTicketProject.entity.Ticket;
 import com.example.FlightTicketProject.exception.TicketNotFoundException;
 import com.example.FlightTicketProject.repository.TicketRepository;
 import com.example.FlightTicketProject.service.TicketService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class TicketServiceImpl implements TicketService {
 
-    private TicketRepository ticketRepository;
-
-    @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository) {
-        this.ticketRepository = ticketRepository;
-    }
+    private final TicketRepository ticketRepository;
 
     @Override
     public List<Ticket> findAll() {

@@ -4,20 +4,16 @@ import com.example.FlightTicketProject.entity.Payment;
 import com.example.FlightTicketProject.exception.PaymentNotFoundException;
 import com.example.FlightTicketProject.repository.PaymentRepository;
 import com.example.FlightTicketProject.service.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    private PaymentRepository paymentRepository;
-
-    @Autowired
-    public PaymentServiceImpl(PaymentRepository paymentRepository) {
-        this.paymentRepository = paymentRepository;
-    }
+    private final PaymentRepository paymentRepository;
 
     @Override
     public List<Payment> findAll() {

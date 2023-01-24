@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -28,6 +28,7 @@ public class ExternalApiFlightResponse {
     @lombok.Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
+        private String id;
         private Price price;
         private List<Leg> legs;
     }
@@ -44,9 +45,9 @@ public class ExternalApiFlightResponse {
         private Origin origin;
         private Destination destination;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-        private LocalDate departure;
+        private Date departure;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-        private LocalDate arrival;
+        private Date arrival;
         private Carrier carriers;
     }
 

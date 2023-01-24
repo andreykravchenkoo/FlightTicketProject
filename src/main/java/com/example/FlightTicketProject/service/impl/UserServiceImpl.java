@@ -8,22 +8,17 @@ import com.example.FlightTicketProject.exception.UserNotFoundException;
 import com.example.FlightTicketProject.repository.UserRepository;
 import com.example.FlightTicketProject.service.UserService;
 import com.example.FlightTicketProject.validator.EmailValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private EmailValidator emailValidator;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, EmailValidator emailValidator) {
-        this.userRepository = userRepository;
-        this.emailValidator = emailValidator;
-    }
+    private final EmailValidator emailValidator;
 
     @Override
     public List<User> findAll() {

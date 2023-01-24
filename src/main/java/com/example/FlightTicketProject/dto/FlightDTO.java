@@ -5,25 +5,28 @@ import com.example.FlightTicketProject.mapper.response.ExternalApiFlightResponse
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 public class FlightDTO {
 
+    private String id;
+
     private String origin;
 
     private String destination;
 
-    private LocalDate departure;
+    private Date departure;
 
-    private LocalDate arrival;
+    private Date arrival;
 
     private double price;
 
     private String carrier;
 
     public FlightDTO(Flight flight) {
+        this.id = flight.getId();
         this.origin = flight.getOrigin();
         this.destination = flight.getDestination();
         this.departure = flight.getDeparture();
@@ -32,6 +35,7 @@ public class FlightDTO {
     }
 
     public FlightDTO(ExternalApiFlightResponse.Item item) {
+        this.id = item.getId();
         this.origin = item.getLegs().get(0).getOrigin().getName();
         this.destination = item.getLegs().get(0).getDestination().getName();
         this.departure = item.getLegs().get(0).getDeparture();

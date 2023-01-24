@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,8 +17,7 @@ import java.util.List;
 public class Flight {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
     @Column(name = "origin")
     private String origin;
@@ -27,10 +26,10 @@ public class Flight {
     private String destination;
 
     @Column(name = "departure")
-    private LocalDate departure;
+    private Date departure;
 
     @Column(name = "arrival")
-    private LocalDate arrival;
+    private Date arrival;
 
     @Column(name = "price")
     private double price;
@@ -41,7 +40,7 @@ public class Flight {
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
-    public Flight(String origin, String destination, LocalDate departure, LocalDate arrival, double price, String carrier) {
+    public Flight(String origin, String destination, Date departure, Date arrival, double price, String carrier) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;

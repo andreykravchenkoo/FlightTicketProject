@@ -5,46 +5,40 @@ import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.mapper.entity.EntityMapper;
 import com.example.FlightTicketProject.service.UserService;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Api("Test user controller")
 @RequestMapping("/api/users")
 @RestController
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private EntityMapper entityMapper;
+    private final EntityMapper entityMapper;
 
-    @Autowired
-    public UserController(UserService userService, EntityMapper entityMapper) {
-        this.userService = userService;
-        this.entityMapper = entityMapper;
-    }
-
-    @GetMapping("")
+    @GetMapping("/search-all-saved")
     public List<UserDTO> getAllUsers() {
         List<User> users = userService.findAll();
 
         return users.stream()
                 .map(UserDTO::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable long userId) {
+    @GetMapping("/search-saved")
+    public ResponseEntity<UserDTO> getUserById(@RequestParam long userId) {
         User userById = userService.findById(userId);
 
         return new ResponseEntity<>(new UserDTO(userById), HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping("/save")
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         User user = entityMapper.mapUserDTOToEntity(userDTO);
 

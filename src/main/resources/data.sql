@@ -1,7 +1,7 @@
-insert into flights (origin, destination, departure, arrival, price, carrier)
-values ('London', 'New-York', current_timestamp() + 1, current_timestamp() + 2, 500.50, 'test1'),
-       ('Berlin', 'Paris', current_timestamp() + 2, current_timestamp() + 3, 700, 'test2'),
-       ('Barselona', 'Rome', current_timestamp() + 3, current_timestamp() + 4, 200.25, 'test1');
+insert into flights (id, origin, destination, departure, arrival, price, carrier)
+values ('1', 'London', 'New-York', current_timestamp() + 1, current_timestamp() + 2, 500.50, 'test1'),
+       ('2', 'Berlin', 'Paris', current_timestamp() + 2, current_timestamp() + 3, 700, 'test2'),
+       ('3', 'Barselona', 'Rome', current_timestamp() + 3, current_timestamp() + 4, 200.25, 'test1');
 
 insert into payments (owner, sum, date, status)
 values ('Andrey1', 700, current_timestamp(), 'NEW'),

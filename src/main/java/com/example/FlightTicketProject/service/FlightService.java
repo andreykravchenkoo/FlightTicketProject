@@ -8,7 +8,7 @@ public interface FlightService {
 
     List<Flight> findAll();
 
-    Flight findById(Long flightId);
+    Flight findById(String flightId);
 
     Flight save(Flight flight);
 
