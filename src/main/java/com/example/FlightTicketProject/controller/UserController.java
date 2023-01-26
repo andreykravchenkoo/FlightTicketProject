@@ -22,7 +22,7 @@ public class UserController {
 
     private final EntityMapper entityMapper;
 
-    @GetMapping("/search-all-saved")
+    @GetMapping("/all")
     public List<UserDTO> getAllUsers() {
         List<User> users = userService.findAll();
 
@@ -31,14 +31,14 @@ public class UserController {
                 .toList();
     }
 
-    @GetMapping("/search-saved")
-    public ResponseEntity<UserDTO> getUserById(@RequestParam long userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable long userId) {
         User userById = userService.findById(userId);
 
         return new ResponseEntity<>(new UserDTO(userById), HttpStatus.OK);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         User user = entityMapper.mapUserDTOToEntity(userDTO);
 

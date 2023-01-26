@@ -27,7 +27,7 @@ public class FlightController {
 
     private final FlightsApiService flightsApiService;
 
-    @GetMapping("/search-all-saved")
+    @GetMapping("/all")
     public List<FlightDTO> getAllFlights() {
         List<Flight> flights = flightService.findAll();
 
@@ -36,7 +36,7 @@ public class FlightController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/search-in-flightlabs")
+    @GetMapping("/search")
     public List<FlightDTO> getFlightsByInfo(@RequestParam(value = "adults") String adults,
                                             @RequestParam(value = "origin") String origin,
                                             @RequestParam(value = "destination") String destination,
@@ -48,14 +48,14 @@ public class FlightController {
                 .toList();
     }
 
-    @GetMapping("/search-saved")
-    public ResponseEntity<FlightDTO> getFlightById(@RequestParam String flightId) {
+    @GetMapping("/{flightId}")
+    public ResponseEntity<FlightDTO> getFlightById(@PathVariable String flightId) {
         Flight flightById = flightService.findById(flightId);
 
         return new ResponseEntity<>(new FlightDTO(flightById), HttpStatus.OK);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<FlightDTO> saveFlight(@RequestBody FlightDTO flightDTO) {
         Flight flight = entityMapper.mapFlightDTOToEntity(flightDTO);
 

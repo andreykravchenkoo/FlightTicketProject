@@ -22,7 +22,7 @@ public class PaymentController {
 
     private final EntityMapper entityMapper;
 
-    @GetMapping("/search-all-saved")
+    @GetMapping("/all")
     public List<PaymentDTO> getAllPayments() {
         List<Payment> payments = paymentService.findAll();
 
@@ -31,14 +31,14 @@ public class PaymentController {
                 .toList();
     }
 
-    @GetMapping("/search-saved")
-    public ResponseEntity<PaymentDTO> getPaymentById(@RequestParam long paymentId) {
+    @GetMapping("/{paymentId}")
+    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable long paymentId) {
         Payment paymentById = paymentService.findById(paymentId);
 
         return new ResponseEntity<>(new PaymentDTO(paymentById), HttpStatus.OK);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<PaymentDTO> savePayment(@RequestBody PaymentDTO paymentDTO) {
         Payment payment = entityMapper.mapPaymentDTOToEntity(paymentDTO);
 

@@ -22,7 +22,7 @@ public class TicketController {
 
     private final EntityMapper entityMapper;
 
-    @GetMapping("/search-all-saved")
+    @GetMapping("/all")
     public List<TicketDTO> getAllTickets() {
         List<Ticket> tickets = ticketService.findAll();
 
@@ -31,14 +31,14 @@ public class TicketController {
                 .toList();
     }
 
-    @GetMapping("/search-saved")
-    public ResponseEntity<TicketDTO> getTicketById(@RequestParam long ticketId) {
+    @GetMapping("/{ticketId}")
+    public ResponseEntity<TicketDTO> getTicketById(@PathVariable long ticketId) {
         Ticket ticketById = ticketService.findById(ticketId);
 
         return new ResponseEntity<>(new TicketDTO(ticketById), HttpStatus.OK);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<TicketDTO> saveTicket(@RequestBody TicketDTO ticketDTO) {
         Ticket ticket = entityMapper.mapTicketDTOToEntity(ticketDTO);
 
