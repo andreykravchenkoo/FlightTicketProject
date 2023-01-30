@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -22,8 +23,8 @@ public class FlightsApiService {
     @Value("${url.access-key}")
     private String accessKey;
 
-    public List<ExternalApiFlightResponse.Item> findFlightsByInfo(String adults, String origin, String destination, String departureDate) {
-        String url = "https://app.goflightlabs.com/search-best-flights?access_key=" + accessKey + "&adults={adults}&origin={origin}&destination={destination}&departureDate={departureDate}";
+    public Set<ExternalApiFlightResponse.Item> findFlightsByInfo(String adults, String origin, String destination, String departureDate, String fareClass) {
+        String url = "https://app.goflightlabs.com/search-best-flights?access_key=" + accessKey + "&adults={adults}&origin={origin}&destination={destination}&departureDate={departureDate}&cabinClass={fareClass}";
 
         if (!dateValidator.isDateValid(departureDate)) {
             throw new DateNotValidException("Date = " + departureDate + " is not valid");
@@ -33,12 +34,18 @@ public class FlightsApiService {
                 "adults", adults,
                 "origin", origin,
                 "destination", destination,
-                "departureDate", departureDate
+                "departureDate", departureDate,
+                "fareClass", fareClass.toLowerCase()
         );
 
         ExternalApiFlightResponse responseJson = restTemplate.getForObject(url, ExternalApiFlightResponse.class, params);
 
-        return responseJson.getData().getBuckets().stream().flatMap(x -> x.getItems().stream()).toList();
+        return responseJson.getData()
+                .getBuckets()
+                .stream()
+                .flatMap(x -> x.getItems().stream())
+                .peek(x -> x.setFareClass(fareClass))
+                .collect(Collectors.toSet());
     }
 
     public List<ExternalApiAirportResponse.Data> findAirportByCity(String city) {

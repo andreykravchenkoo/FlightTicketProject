@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,9 +24,9 @@ public class FlightController {
 
     private final FlightService flightService;
 
-    private final EntityMapper entityMapper;
-
     private final FlightsApiService flightsApiService;
+
+    private final EntityMapper entityMapper;
 
     @GetMapping("/all")
     public List<FlightDTO> getAllFlights() {
@@ -37,15 +38,22 @@ public class FlightController {
     }
 
     @GetMapping("/search")
-    public List<FlightDTO> getFlightsByInfo(@RequestParam(value = "adults") String adults,
-                                            @RequestParam(value = "origin") String origin,
-                                            @RequestParam(value = "destination") String destination,
-                                            @RequestParam(value = "departureDate") String departureDate) {
-        List<ExternalApiFlightResponse.Item> flights = flightsApiService.findFlightsByInfo(adults, origin, destination, departureDate);
+    public Set<FlightDTO> getFlightsByInfo(@RequestParam(value = "adults") String adults,
+                                           @RequestParam(value = "origin") String origin,
+                                           @RequestParam(value = "destination") String destination,
+                                           @RequestParam(value = "departureDate") String departureDate,
+                                           @RequestParam(value = "fareClass") String fareClass) {
+        Set<ExternalApiFlightResponse.Item> flights = flightsApiService.findFlightsByInfo(adults, origin, destination, departureDate, fareClass);
 
-        return flights.stream()
+        Set<FlightDTO> flightsDTO = flights.stream()
                 .map(FlightDTO::new)
-                .toList();
+                .collect(Collectors.toSet());
+
+        flightService.saveAll(flightsDTO.stream()
+                .map(entityMapper::mapFlightDTOToEntity)
+                .collect(Collectors.toSet()));
+
+        return flightsDTO;
     }
 
     @GetMapping("/{flightId}")

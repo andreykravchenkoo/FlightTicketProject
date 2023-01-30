@@ -34,18 +34,23 @@ public class Flight {
     @Column(name = "price")
     private double price;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fare_сlass")
+    private FareClassStatus fareClass;
+
     @Column(name = "carrier")
     private String carrier;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
-    public Flight(String origin, String destination, Date departure, Date arrival, double price, String carrier) {
+    public Flight(String origin, String destination, Date departure, Date arrival, double price, FareClassStatus fareClass, String carrier) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;
         this.arrival = arrival;
         this.price = price;
+        this.fareClass = fareClass;
         this.carrier = carrier;
     }
 

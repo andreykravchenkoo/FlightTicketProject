@@ -6,17 +6,19 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TicketDTO {
-
-    private long id;
+public class TicketInfoWIthPaymentIdDTO {
+    private long ticketId;
 
     private String owner;
 
     private String seat;
 
-    public TicketDTO(Ticket ticket) {
-        this.id = ticket.getId();
+    private long paymentId;
+
+    public TicketInfoWIthPaymentIdDTO(Ticket ticket, long paymentId) {
+        this.ticketId = ticket.getId();
         this.owner = ticket.getOwner();
         this.seat = ticket.getSeat();
+        this.paymentId = paymentId;
     }
 }

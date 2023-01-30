@@ -2,6 +2,7 @@ package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.PaymentDTO;
 import com.example.FlightTicketProject.entity.Payment;
+import com.example.FlightTicketProject.facade.PaymentProcessorFacade;
 import com.example.FlightTicketProject.mapper.entity.EntityMapper;
 import com.example.FlightTicketProject.service.PaymentService;
 import io.swagger.annotations.Api;
@@ -19,6 +20,8 @@ import java.util.List;
 public class PaymentController {
 
     private final PaymentService paymentService;
+
+    private final PaymentProcessorFacade paymentProcessorFacade;
 
     private final EntityMapper entityMapper;
 
@@ -45,5 +48,13 @@ public class PaymentController {
         Payment savedPayment = paymentService.save(payment);
 
         return new ResponseEntity<>(new PaymentDTO(savedPayment), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/execute")
+    public ResponseEntity<PaymentDTO> executePayment(@RequestParam(value = "paymentId") long paymentId,
+                                                     @RequestParam(value = "sum") double sum) {
+        Payment payment = paymentProcessorFacade.executePayment(paymentId, sum);
+
+        return new ResponseEntity<>(new PaymentDTO(payment), HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.FlightTicketProject.dto;
 
+import com.example.FlightTicketProject.entity.FareClassStatus;
 import com.example.FlightTicketProject.entity.Flight;
 import com.example.FlightTicketProject.mapper.response.ExternalApiFlightResponse;
 import lombok.Data;
@@ -23,6 +24,8 @@ public class FlightDTO {
 
     private double price;
 
+    private FareClassStatus fareClass;
+
     private String carrier;
 
     public FlightDTO(Flight flight) {
@@ -32,6 +35,8 @@ public class FlightDTO {
         this.departure = flight.getDeparture();
         this.arrival = flight.getArrival();
         this.price = flight.getPrice();
+        this.fareClass = flight.getFareClass();
+        this.carrier = flight.getCarrier();
     }
 
     public FlightDTO(ExternalApiFlightResponse.Item item) {
@@ -41,6 +46,7 @@ public class FlightDTO {
         this.departure = item.getLegs().get(0).getDeparture();
         this.arrival = item.getLegs().get(0).getArrival();
         this.price = item.getPrice().getRaw();
+        this.fareClass = FareClassStatus.valueOf(item.getFareClass().toUpperCase());
         this.carrier = item.getLegs().get(0).getCarriers().getMarketing().get(0).getName();
     }
 }

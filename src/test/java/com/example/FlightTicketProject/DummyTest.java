@@ -1,18 +1,12 @@
 package com.example.FlightTicketProject;
 
-import com.example.FlightTicketProject.dto.FlightDTO;
-import com.example.FlightTicketProject.entity.Flight;
-import com.example.FlightTicketProject.mapper.response.ExternalApiAirportResponse;
 import com.example.FlightTicketProject.mapper.response.ExternalApiFlightResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DummyTest {
 
@@ -21,10 +15,6 @@ public class DummyTest {
         var objectMapper = new ObjectMapper();
         ExternalApiFlightResponse root = objectMapper.readValue(json, ExternalApiFlightResponse.class);
         System.out.println(root);
-
-//        List<ExternalApiFlightResponse.Item> flights = root.getData().getBuckets().stream().flatMap(x -> x.getItems().stream()).collect(Collectors.toList());
-//
-//        System.out.println(flights);
     }
 
     String json = "{\n" +

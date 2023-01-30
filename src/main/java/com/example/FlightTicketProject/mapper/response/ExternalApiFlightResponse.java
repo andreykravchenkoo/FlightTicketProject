@@ -29,6 +29,7 @@ public class ExternalApiFlightResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
         private String id;
+        private String fareClass;
         private Price price;
         private List<Leg> legs;
     }

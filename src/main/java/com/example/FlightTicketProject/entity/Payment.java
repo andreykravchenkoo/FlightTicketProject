@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
@@ -25,7 +25,7 @@ public class Payment {
     private double sum;
 
     @Column(name = "date")
-    private LocalDate date;
+    private Date date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -34,9 +34,9 @@ public class Payment {
     @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
     private Ticket ticket;
 
-    public Payment(String owner, double sum, LocalDate date) {
+    public Payment(String owner, Date date, PaymentStatus status) {
         this.owner = owner;
-        this.sum = sum;
         this.date = date;
+        this.status = status;
     }
 }

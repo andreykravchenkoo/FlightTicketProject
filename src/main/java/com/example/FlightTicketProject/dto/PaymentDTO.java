@@ -5,7 +5,7 @@ import com.example.FlightTicketProject.entity.PaymentStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class PaymentDTO {
 
     private String owner;
 
-    private LocalDate date;
+    private Date date;
 
     private PaymentStatus paymentStatus;
 

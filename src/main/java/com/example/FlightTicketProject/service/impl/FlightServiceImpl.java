@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -31,7 +32,17 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    public void saveAll(Set<Flight> flights) {
+        flightRepository.saveAll(flights);
+    }
+
+    @Override
     public void update(Flight flight) {
         flightRepository.save(flight);
+    }
+
+    @Override
+    public double findPriceFlightByPaymentId(long paymentId) {
+        return flightRepository.findPriceFlightByPaymentId(paymentId);
     }
 }

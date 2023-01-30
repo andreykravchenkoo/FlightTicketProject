@@ -14,11 +14,14 @@ public class EntityMapper {
     public Flight mapFlightDTOToEntity(FlightDTO flightDTO) {
         Flight flight = new Flight();
 
+        flight.setId(flightDTO.getId());
         flight.setOrigin(flightDTO.getOrigin());
         flight.setDestination(flightDTO.getDestination());
         flight.setDeparture(flightDTO.getDeparture());
         flight.setArrival(flightDTO.getArrival());
         flight.setPrice(flightDTO.getPrice());
+        flight.setFareClass(flightDTO.getFareClass());
+        flight.setCarrier(flightDTO.getCarrier());
 
         return flight;
     }
@@ -41,7 +44,6 @@ public class EntityMapper {
         ticket.setId(ticketDTO.getId());
         ticket.setOwner(ticketDTO.getOwner());
         ticket.setSeat(ticketDTO.getSeat());
-        ticket.setStatus(ticketDTO.getStatus());
 
         return ticket;
     }

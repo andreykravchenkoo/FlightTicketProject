@@ -23,10 +23,6 @@ public class Ticket {
     @Column(name = "seat")
     private String seat;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private FareClassStatus status;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
     private Payment payment;
@@ -39,9 +35,8 @@ public class Ticket {
     @JoinColumn(name = "flight_id")
     private Flight flight;
 
-    public Ticket(String owner, String seat, FareClassStatus status) {
+    public Ticket(String owner, String seat) {
         this.owner = owner;
         this.seat = seat;
-        this.status = status;
     }
 }
