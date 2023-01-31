@@ -1,4 +1,4 @@
-package com.example.FlightTicketProject.mapper.response;
+package com.example.FlightTicketProject.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

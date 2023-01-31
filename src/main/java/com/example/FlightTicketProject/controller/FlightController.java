@@ -2,10 +2,10 @@ package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.FlightDTO;
 import com.example.FlightTicketProject.entity.Flight;
-import com.example.FlightTicketProject.mapper.entity.EntityMapper;
-import com.example.FlightTicketProject.mapper.response.ExternalApiFlightResponse;
+import com.example.FlightTicketProject.mapper.EntityDTOMapper;
+import com.example.FlightTicketProject.dto.response.ExternalApiFlightResponse;
 import com.example.FlightTicketProject.service.FlightService;;
-import com.example.FlightTicketProject.service.rest.FlightsApiService;
+import com.example.FlightTicketProject.service.rest.GoflightlabsClientService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,51 +24,49 @@ public class FlightController {
 
     private final FlightService flightService;
 
-    private final FlightsApiService flightsApiService;
+    private final GoflightlabsClientService flightsApiService;
 
-    private final EntityMapper entityMapper;
+    @GetMapping
+    public ResponseEntity<List<FlightDTO>> getAllFlights() {
+        List<FlightDTO> flightsDTO = flightService.findAll().stream()
+                .map(EntityDTOMapper::mapFlightToFlightDTO)
+                .toList();
 
-    @GetMapping("/all")
-    public List<FlightDTO> getAllFlights() {
-        List<Flight> flights = flightService.findAll();
-
-        return flights.stream()
-                .map(FlightDTO::new)
-                .collect(Collectors.toList());
+        return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public Set<FlightDTO> getFlightsByInfo(@RequestParam(value = "adults") String adults,
-                                           @RequestParam(value = "origin") String origin,
-                                           @RequestParam(value = "destination") String destination,
-                                           @RequestParam(value = "departureDate") String departureDate,
-                                           @RequestParam(value = "fareClass") String fareClass) {
-        Set<ExternalApiFlightResponse.Item> flights = flightsApiService.findFlightsByInfo(adults, origin, destination, departureDate, fareClass);
+    public ResponseEntity<Set<FlightDTO>> getFlightsByInfo(@RequestParam(value = "adults") String adults,
+                                                           @RequestParam(value = "origin") String origin,
+                                                           @RequestParam(value = "destination") String destination,
+                                                           @RequestParam(value = "departureDate") String departureDate,
+                                                           @RequestParam(value = "fareClass") String fareClass) {
+        Set<ExternalApiFlightResponse.Item> responseFlights = flightsApiService.findFlightsByInfo(adults, origin, destination, departureDate, fareClass);
 
-        Set<FlightDTO> flightsDTO = flights.stream()
-                .map(FlightDTO::new)
+        Set<FlightDTO> flightsDTO = responseFlights.stream()
+                .map(EntityDTOMapper::mapExternalApiFlightResponseToFLightDTO)
                 .collect(Collectors.toSet());
 
         flightService.saveAll(flightsDTO.stream()
-                .map(entityMapper::mapFlightDTOToEntity)
+                .map(EntityDTOMapper::mapFlightDTOToEntity)
                 .collect(Collectors.toSet()));
 
-        return flightsDTO;
+        return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{flightId}")
     public ResponseEntity<FlightDTO> getFlightById(@PathVariable String flightId) {
         Flight flightById = flightService.findById(flightId);
 
-        return new ResponseEntity<>(new FlightDTO(flightById), HttpStatus.OK);
+        return new ResponseEntity<>(EntityDTOMapper.mapFlightToFlightDTO(flightById), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<FlightDTO> saveFlight(@RequestBody FlightDTO flightDTO) {
-        Flight flight = entityMapper.mapFlightDTOToEntity(flightDTO);
+        Flight flight = EntityDTOMapper.mapFlightDTOToEntity(flightDTO);
 
         Flight savedFlight = flightService.save(flight);
 
-        return new ResponseEntity<>(new FlightDTO(savedFlight), HttpStatus.CREATED);
+        return new ResponseEntity<>(EntityDTOMapper.mapFlightToFlightDTO(savedFlight), HttpStatus.CREATED);
     }
 }

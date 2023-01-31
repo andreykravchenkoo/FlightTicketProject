@@ -1,10 +1,12 @@
 package com.example.FlightTicketProject.controller;
 
 import com.example.FlightTicketProject.dto.AirportInfoDTO;
-import com.example.FlightTicketProject.mapper.response.ExternalApiAirportResponse;
-import com.example.FlightTicketProject.service.rest.FlightsApiService;
+import com.example.FlightTicketProject.mapper.EntityDTOMapper;
+import com.example.FlightTicketProject.service.rest.GoflightlabsClientService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,14 +17,14 @@ import java.util.List;
 @RestController
 public class AirportController {
 
-    private final FlightsApiService flightsApiService;
+    private final GoflightlabsClientService flightsApiService;
 
     @GetMapping("/search")
-    public List<AirportInfoDTO> getAirportByCity(@RequestParam String city) {
-        List<ExternalApiAirportResponse.Data> airports = flightsApiService.findAirportByCity(city);
-
-        return airports.stream()
-                .map(AirportInfoDTO::new)
+    public ResponseEntity<List<AirportInfoDTO>> getAirportByCity(@RequestParam String city) {
+        List<AirportInfoDTO> airportInfoDTO = flightsApiService.findAirportByCity(city).stream()
+                .map(EntityDTOMapper::mapExternalApiAirportResponseToAirportInfoDTO)
                 .toList();
+
+        return new ResponseEntity<>(airportInfoDTO, HttpStatus.OK);
     }
 }

@@ -7,6 +7,7 @@ import com.example.FlightTicketProject.service.PaymentService;
 import com.example.FlightTicketProject.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class BookingTicketFacade {
 
     private final PaymentService paymentService;
 
+    @Transactional
     public Ticket bookTicket(String flightId, String owner, String seat) {
         Flight flight = flightService.findById(flightId);
 

@@ -1,6 +1,6 @@
 package com.example.FlightTicketProject;
 
-import com.example.FlightTicketProject.mapper.response.ExternalApiFlightResponse;
+import com.example.FlightTicketProject.dto.response.ExternalApiFlightResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

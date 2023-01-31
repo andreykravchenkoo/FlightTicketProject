@@ -1,8 +1,11 @@
 package com.example.FlightTicketProject.validator;
 
+import org.springframework.stereotype.Component;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+@Component
 public class DateValidator {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 

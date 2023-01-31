@@ -4,6 +4,7 @@ import com.example.FlightTicketProject.dto.BookTicketDTO;
 import com.example.FlightTicketProject.dto.TicketInfoWIthPaymentIdDTO;
 import com.example.FlightTicketProject.entity.Ticket;
 import com.example.FlightTicketProject.facade.BookingTicketFacade;
+import com.example.FlightTicketProject.mapper.EntityDTOMapper;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,6 @@ public class BookingController {
                 bookTicketDTO.getOwner(),
                 bookTicketDTO.getSeat());
 
-        return new ResponseEntity<>(new TicketInfoWIthPaymentIdDTO(ticket, ticket.getPayment().getId()), HttpStatus.CREATED);
+        return new ResponseEntity<>(EntityDTOMapper.mapTicketAndPaymentIdToTicketInfoWIthPaymentIdDTO(ticket, ticket.getPayment().getId()), HttpStatus.CREATED);
     }
 }
