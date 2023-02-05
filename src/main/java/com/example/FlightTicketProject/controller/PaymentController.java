@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -33,14 +35,14 @@ public class PaymentController {
     }
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable long paymentId) {
+    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable @Min(1) long paymentId) {
         Payment paymentById = paymentService.findById(paymentId);
 
         return new ResponseEntity<>(EntityDTOMapper.mapPaymentToPaymentDTO(paymentById), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<PaymentDTO> savePayment(@RequestBody PaymentDTO paymentDTO) {
+    public ResponseEntity<PaymentDTO> savePayment(@Valid @RequestBody PaymentDTO paymentDTO) {
         Payment payment = EntityDTOMapper.mapPaymentDTOToEntity(paymentDTO);
 
         Payment savedPayment = paymentService.save(payment);
@@ -49,8 +51,8 @@ public class PaymentController {
     }
 
     @PostMapping("/execute")
-    public ResponseEntity<PaymentDTO> executePayment(@RequestParam(value = "paymentId") long paymentId,
-                                                     @RequestParam(value = "sum") double sum) {
+    public ResponseEntity<PaymentDTO> executePayment(@Min(1) @RequestParam(value = "paymentId") long paymentId,
+                                                     @RequestParam(value = "sum") @Min(1) double sum) {
         Payment payment = paymentProcessorFacade.executePayment(paymentId, sum);
 
         return new ResponseEntity<>(EntityDTOMapper.mapPaymentToPaymentDTO(payment), HttpStatus.OK);

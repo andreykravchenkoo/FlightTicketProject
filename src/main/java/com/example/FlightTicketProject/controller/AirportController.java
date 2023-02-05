@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,11 +18,11 @@ import java.util.List;
 @RestController
 public class AirportController {
 
-    private final GoflightlabsClientService flightsApiService;
+    private final GoflightlabsClientService goflightlabsClientService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<AirportInfoDTO>> getAirportByCity(@RequestParam String city) {
-        List<AirportInfoDTO> airportInfoDTO = flightsApiService.findAirportByCity(city).stream()
+    public ResponseEntity<List<AirportInfoDTO>> getAirportByCity(@RequestParam @NotBlank String city) {
+        List<AirportInfoDTO> airportInfoDTO = goflightlabsClientService.findAirportByCity(city).stream()
                 .map(EntityDTOMapper::mapExternalApiAirportResponseToAirportInfoDTO)
                 .toList();
 

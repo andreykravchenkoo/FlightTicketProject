@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,14 +32,14 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable long userId) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable @Min(1) long userId) {
         User userById = userService.findById(userId);
 
         return new ResponseEntity<>(EntityDTOMapper.mapUserToUserDTO(userById), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> saveUser(@RequestBody @Valid UserDTO userDTO) {
         User user = EntityDTOMapper.mapUserDTOToEntity(userDTO);
 
         User savedUser = userService.save(user);

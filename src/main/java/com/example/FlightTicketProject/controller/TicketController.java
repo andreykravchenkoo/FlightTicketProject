@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,14 +32,14 @@ public class TicketController {
     }
 
     @GetMapping("/{ticketId}")
-    public ResponseEntity<TicketDTO> getTicketById(@PathVariable long ticketId) {
+    public ResponseEntity<TicketDTO> getTicketById(@PathVariable @Min(1) long ticketId) {
         Ticket ticketById = ticketService.findById(ticketId);
 
         return new ResponseEntity<>(EntityDTOMapper.mapTicketToTicketDTO(ticketById), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<TicketDTO> saveTicket(@RequestBody TicketDTO ticketDTO) {
+    public ResponseEntity<TicketDTO> saveTicket(@RequestBody @Valid TicketDTO ticketDTO) {
         Ticket ticket = EntityDTOMapper.mapTicketDTOToEntity(ticketDTO);
 
         Ticket savedTicket = ticketService.save(ticket);

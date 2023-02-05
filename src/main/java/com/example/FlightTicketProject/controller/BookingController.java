@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @Api(tags = "Test booking controller")
 @RequestMapping("/api/booking")
@@ -23,7 +25,7 @@ public class BookingController {
     private final BookingTicketFacade bookingTicketFacade;
 
     @PostMapping("/{flightId}")
-    public ResponseEntity<TicketInfoWIthPaymentIdDTO> bookTicket(@RequestBody BookTicketDTO bookTicketDTO) {
+    public ResponseEntity<TicketInfoWIthPaymentIdDTO> bookTicket(@RequestBody @Valid BookTicketDTO bookTicketDTO) {
         Ticket ticket = bookingTicketFacade.bookTicket(bookTicketDTO.getFlightId(),
                 bookTicketDTO.getOwner(),
                 bookTicketDTO.getSeat());

@@ -20,7 +20,7 @@ public class SwaggerConfiguration {
                 .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select()
-                .paths(regex("/api.*"))
+                .paths(regex("/air-ticket-booking/api.*"))
                 .build();
     }
 

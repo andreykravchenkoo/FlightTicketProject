@@ -1,9 +1,7 @@
 package com.example.FlightTicketProject.service.rest;
 
-import com.example.FlightTicketProject.exception.DateNotValidException;
 import com.example.FlightTicketProject.dto.response.ExternalApiAirportResponse;
 import com.example.FlightTicketProject.dto.response.ExternalApiFlightResponse;
-import com.example.FlightTicketProject.validator.DateValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,20 +17,14 @@ public class GoflightlabsClientService {
 
     private final RestTemplate restTemplate;
 
-    private final DateValidator dateValidator;
-
     @Value("${url.base}")
     private String baseUrl;
 
     @Value("${url.access-key}")
     private String accessKey;
 
-    public Set<ExternalApiFlightResponse.Item> findFlightsByInfo(String adults, String origin, String destination, String departureDate, String fareClass) {
+    public Set<ExternalApiFlightResponse.Item> findFlightsByFilter(String adults, String origin, String destination, String departureDate, String fareClass) {
         String path = "/search-best-flights?access_key={accessKey}&adults={adults}&origin={origin}&destination={destination}&departureDate={departureDate}&cabinClass={fareClass}";
-
-        if (!dateValidator.isDateValid(departureDate)) {
-            throw new DateNotValidException("Date = " + departureDate + " is not valid");
-        }
 
         Map<String, String> params = Map.of(
                 "accessKey", accessKey,

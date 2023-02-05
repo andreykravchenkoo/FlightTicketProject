@@ -3,11 +3,9 @@ package com.example.FlightTicketProject.service.impl;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.entity.UserRole;
 import com.example.FlightTicketProject.exception.EmailAlreadyTakenException;
-import com.example.FlightTicketProject.exception.EmailNotValidException;
 import com.example.FlightTicketProject.exception.UserNotFoundException;
 import com.example.FlightTicketProject.repository.UserRepository;
 import com.example.FlightTicketProject.service.UserService;
-import com.example.FlightTicketProject.validator.EmailValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +15,6 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-
-    private final EmailValidator emailValidator;
 
     @Override
     public List<User> findAll() {
@@ -32,10 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        if (!emailValidator.isEmailValid(user.getEmail())) {
-            throw new EmailNotValidException("Email = " + user.getEmail() + " not valid");
-        }
-
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new EmailAlreadyTakenException("Email = " + user.getEmail() + " already taken");
         }

@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,7 +27,7 @@ public class FlightController {
 
     private final FlightService flightService;
 
-    private final GoflightlabsClientService flightsApiService;
+    private final GoflightlabsClientService goflightlabsClientService;
 
     @GetMapping
     public ResponseEntity<List<FlightDTO>> getAllFlights() {
@@ -36,12 +39,12 @@ public class FlightController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Set<FlightDTO>> getFlightsByInfo(@RequestParam(value = "adults") String adults,
-                                                           @RequestParam(value = "origin") String origin,
-                                                           @RequestParam(value = "destination") String destination,
-                                                           @RequestParam(value = "departureDate") String departureDate,
-                                                           @RequestParam(value = "fareClass") String fareClass) {
-        Set<ExternalApiFlightResponse.Item> responseFlights = flightsApiService.findFlightsByInfo(adults, origin, destination, departureDate, fareClass);
+    public ResponseEntity<Set<FlightDTO>> getFlightsByFilter(@RequestParam(value = "adults") @NotBlank String adults,
+                                                             @RequestParam(value = "origin") @NotBlank String origin,
+                                                             @RequestParam(value = "destination") @NotBlank String destination,
+                                                             @RequestParam(value = "departureDate") @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$") String departureDate,
+                                                             @RequestParam(value = "fareClass") @NotBlank String fareClass) {
+        Set<ExternalApiFlightResponse.Item> responseFlights = goflightlabsClientService.findFlightsByFilter(adults, origin, destination, departureDate, fareClass);
 
         Set<FlightDTO> flightsDTO = responseFlights.stream()
                 .map(EntityDTOMapper::mapExternalApiFlightResponseToFLightDTO)
@@ -55,14 +58,14 @@ public class FlightController {
     }
 
     @GetMapping("/{flightId}")
-    public ResponseEntity<FlightDTO> getFlightById(@PathVariable String flightId) {
+    public ResponseEntity<FlightDTO> getFlightById(@PathVariable @NotBlank String flightId) {
         Flight flightById = flightService.findById(flightId);
 
         return new ResponseEntity<>(EntityDTOMapper.mapFlightToFlightDTO(flightById), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<FlightDTO> saveFlight(@RequestBody FlightDTO flightDTO) {
+    public ResponseEntity<FlightDTO> saveFlight(@RequestBody @Valid FlightDTO flightDTO) {
         Flight flight = EntityDTOMapper.mapFlightDTOToEntity(flightDTO);
 
         Flight savedFlight = flightService.save(flight);
