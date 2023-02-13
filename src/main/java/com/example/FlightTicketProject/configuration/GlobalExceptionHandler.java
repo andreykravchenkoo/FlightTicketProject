@@ -106,18 +106,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(InvalidOwnerException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidOwnerException(InvalidOwnerException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                new Date(),
-                HttpStatus.NOT_FOUND.value(),
-                HttpStatus.NOT_FOUND,
-                exception.getMessage()
-        );
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(InvalidSumException.class)
     public ResponseEntity<ErrorResponse> handleInvalidSumException(InvalidSumException exception) {
         ErrorResponse errorResponse = new ErrorResponse(

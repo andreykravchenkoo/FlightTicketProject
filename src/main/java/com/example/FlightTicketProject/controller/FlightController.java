@@ -8,6 +8,7 @@ import com.example.FlightTicketProject.service.FlightService;;
 import com.example.FlightTicketProject.service.rest.GoflightlabsClientService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @Api(tags = "Test flight controller")
 @RequestMapping("/api/flights")
 @RestController
+@Slf4j
 public class FlightController {
 
     private final FlightService flightService;
@@ -44,6 +46,8 @@ public class FlightController {
                                                              @RequestParam(value = "destination") @NotBlank String destination,
                                                              @RequestParam(value = "departureDate") @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$") String departureDate,
                                                              @RequestParam(value = "fareClass") @NotBlank String fareClass) {
+        log.info("Received request to get flights by filter: adults = {}, origin = {}, destination = {}, departureDate = {}, fareClass = {}", adults, origin, destination, departureDate, fareClass);
+
         Set<ExternalApiFlightResponse.Item> responseFlights = goflightlabsClientService.findFlightsByFilter(adults, origin, destination, departureDate, fareClass);
 
         Set<FlightDTO> flightsDTO = responseFlights.stream()
@@ -54,6 +58,7 @@ public class FlightController {
                 .map(EntityDTOMapper::mapFlightDTOToEntity)
                 .collect(Collectors.toSet()));
 
+        log.info("Request get flights by filter completed successfully");
         return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
     }
 

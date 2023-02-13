@@ -3,6 +3,7 @@ package com.example.FlightTicketProject.service.rest;
 import com.example.FlightTicketProject.dto.response.ExternalApiAirportResponse;
 import com.example.FlightTicketProject.dto.response.ExternalApiFlightResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class GoflightlabsClientService {
 
     private final RestTemplate restTemplate;
@@ -24,6 +26,8 @@ public class GoflightlabsClientService {
     private String accessKey;
 
     public Set<ExternalApiFlightResponse.Item> findFlightsByFilter(String adults, String origin, String destination, String departureDate, String fareClass) {
+        log.info("Finding flights in Goflightlabs by filter: adults = {}, origin = {}, destination = {}, departureDate = {}, fareClass = {}", adults, origin, destination, departureDate, fareClass);
+
         String path = "/search-best-flights?access_key={accessKey}&adults={adults}&origin={origin}&destination={destination}&departureDate={departureDate}&cabinClass={fareClass}";
 
         Map<String, String> params = Map.of(
@@ -39,6 +43,7 @@ public class GoflightlabsClientService {
 
         ExternalApiFlightResponse responseJson = restTemplate.getForObject(url, ExternalApiFlightResponse.class);
 
+        log.info("Flights in Goflightlabs found successfully");
         return Optional.ofNullable(responseJson)
                 .map(ExternalApiFlightResponse::getData)
                 .map(ExternalApiFlightResponse.Data::getBuckets)
@@ -50,6 +55,8 @@ public class GoflightlabsClientService {
     }
 
     public List<ExternalApiAirportResponse.Data> findAirportByCity(String city) {
+        log.info("Finding airport data in Goflightlabs by city = {}", city);
+
         String path = "/get-airport-data?access_key={accessKey}&query={query}";
 
         Map<String, String> param = Map.of(
@@ -61,6 +68,7 @@ public class GoflightlabsClientService {
 
         ExternalApiAirportResponse responseJson = restTemplate.getForObject(url, ExternalApiAirportResponse.class);
 
+        log.info("Airport data found successfully");
         return Optional.ofNullable(responseJson)
                 .map(ExternalApiAirportResponse::getData)
                 .orElse(List.of());
