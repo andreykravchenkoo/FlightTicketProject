@@ -34,4 +34,4 @@ The application is currently under development, many features will be added and 
 1. Clone the project locally on your machine
 2. Get API key here: https://app.goflightlabs.com/dashboard
 3. Paste the resulting key into application.properties
-4. Launch by URL: http://localhost:8080/swagger-ui/index.html#/
+4. Launch by URL: http://localhost:8080/air-ticket-booking/swagger-ui/index.html#

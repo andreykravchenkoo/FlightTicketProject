@@ -5,14 +5,10 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
-public class UserDTO {
-
-    @NotNull(message = "ID is required")
-    private long id;
+public class RegisterRequestDTO {
 
     @NotBlank(message = "Firstname is required")
     private String firstname;

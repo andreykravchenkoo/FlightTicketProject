@@ -48,7 +48,7 @@ public class PaymentProcessorFacade {
 
     private void checkSum(double sum, double priceFlight) {
         if (sum < priceFlight || sum > priceFlight) {
-            log.warn("The payment sum does not match the price of the flight. sum = {}, priceFlight = {}", sum, priceFlight);
+            log.warn("The payment sum does not match the price of the flight. Sum = {}, priceFlight = {}", sum, priceFlight);
             throw new InvalidSumException("Invalid sum = " + sum + " because price of the flight = " + priceFlight);
         }
     }

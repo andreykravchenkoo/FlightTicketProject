@@ -100,8 +100,8 @@ public class EntityDTOMapper {
         User user = new User();
 
         user.setId(userDTO.getId());
-        user.setName(userDTO.getName());
-        user.setUsername(userDTO.getUsername());
+        user.setFirstname(userDTO.getFirstname());
+        user.setLastname(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
 
@@ -112,8 +112,8 @@ public class EntityDTOMapper {
         UserDTO userDTO = new UserDTO();
 
         userDTO.setId(user.getId());
-        userDTO.setName(user.getName());
-        userDTO.setUsername(user.getUsername());
+        userDTO.setFirstname(user.getFirstname());
+        userDTO.setLastname(user.getLastname());
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
 
