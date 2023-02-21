@@ -36,6 +36,15 @@ public class PaymentController {
         return new ResponseEntity<>(paymentsDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<List<PaymentDTO>> getAllPaymentsByUser() {
+        List<PaymentDTO> paymentsDTO = paymentService.findAllByUser().stream()
+                .map(EntityDTOMapper::mapPaymentToPaymentDTO)
+                .toList();
+
+        return new ResponseEntity<>(paymentsDTO, HttpStatus.OK);
+    }
+
     @GetMapping("/{paymentId}")
     public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable @Min(1) long paymentId) {
         Payment paymentById = paymentService.findById(paymentId);

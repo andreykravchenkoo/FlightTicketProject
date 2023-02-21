@@ -104,6 +104,7 @@ public class EntityDTOMapper {
         user.setLastname(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
+        user.setRole(userDTO.getRole());
 
         return user;
     }
@@ -116,6 +117,7 @@ public class EntityDTOMapper {
         userDTO.setLastname(user.getLastname());
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
+        userDTO.setRole(user.getRole());
 
         return userDTO;
     }

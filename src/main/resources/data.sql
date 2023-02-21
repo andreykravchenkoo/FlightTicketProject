@@ -9,7 +9,7 @@ values ('Andrey1', 700, current_timestamp(), 'NEW'),
        ('Andrey3',201, current_timestamp(), 'ARCHIVE');
 
 insert into users (firstname, lastname, email, password, role)
-values ('Andrey1', 'Andreyyyy1', 'andrik1@gmail.com', '12345', 'ADMIN'),
+values ('Andrii', 'Kravchenko', 'admin@gmail.com', '$2a$10$Yd44HCeBpiEXsafVDuJ.Je3P3fxK/aEH4v/OEaSYWEL54cgURuzG2', 'ADMIN'),
        ('Andrey2', 'Andreyyyy2', 'andrik2@gmail.com', '14345', 'USER'),
        ('Andrey3', 'Andreyyyy3', 'andrik3@gmail.com', '15345', 'USER');
 

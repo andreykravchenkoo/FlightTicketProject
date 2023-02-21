@@ -31,6 +31,15 @@ public class TicketController {
         return new ResponseEntity<>(ticketsDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<List<TicketDTO>> getAllTicketsByUser() {
+        List<TicketDTO> ticketsDTO = ticketService.findAllByUser().stream()
+                .map(EntityDTOMapper::mapTicketToTicketDTO)
+                .toList();
+
+        return new ResponseEntity<>(ticketsDTO, HttpStatus.OK);
+    }
+
     @GetMapping("/{ticketId}")
     public ResponseEntity<TicketDTO> getTicketById(@PathVariable @Min(1) long ticketId) {
         Ticket ticketById = ticketService.findById(ticketId);

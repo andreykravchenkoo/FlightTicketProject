@@ -1,5 +1,6 @@
 package com.example.FlightTicketProject.dto;
 
+import com.example.FlightTicketProject.entity.UserRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,7 @@ public class UserDTO {
 
     @NotBlank(message = "Password is required")
     private String password;
+
+    @NotNull(message = "User role is required")
+    private UserRole role;
 }

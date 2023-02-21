@@ -3,6 +3,7 @@ package com.example.FlightTicketProject.service.impl;
 import com.example.FlightTicketProject.entity.Flight;
 import com.example.FlightTicketProject.exception.FlightNotFoundException;
 import com.example.FlightTicketProject.repository.FlightRepository;
+import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.FlightService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,10 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public double findPriceFlightByPaymentId(long paymentId) {
         return flightRepository.findPriceFlightByPaymentId(paymentId);
+    }
+
+    @Override
+    public List<Flight> findAllByUser() {
+        return flightRepository.findAllByUser(JwtAuthenticationFilter.getCurrentUserEmail());
     }
 }

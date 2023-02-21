@@ -3,6 +3,7 @@ package com.example.FlightTicketProject.service.impl;
 import com.example.FlightTicketProject.entity.Payment;
 import com.example.FlightTicketProject.exception.PaymentNotFoundException;
 import com.example.FlightTicketProject.repository.PaymentRepository;
+import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,10 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void update(Payment payment) {
         paymentRepository.save(payment);
+    }
+
+    @Override
+    public List<Payment> findAllByUser() {
+        return paymentRepository.findAllByUser(JwtAuthenticationFilter.getCurrentUserEmail());
     }
 }

@@ -13,4 +13,6 @@ public interface TicketService {
     Ticket save(Ticket ticket);
 
     void update(Ticket ticket);
+
+    List<Ticket> findAllByUser();
 }

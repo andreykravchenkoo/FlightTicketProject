@@ -13,4 +13,6 @@ public interface PaymentService {
     Payment save(Payment payment);
 
     void update(Payment payment);
+
+    List<Payment> findAllByUser();
 }

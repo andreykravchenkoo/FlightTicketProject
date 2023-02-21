@@ -62,6 +62,15 @@ public class FlightController {
         return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<List<FlightDTO>> getAllFlightByUser() {
+        List<FlightDTO> flightsDTO = flightService.findAllByUser().stream()
+                .map(EntityDTOMapper::mapFlightToFlightDTO)
+                .toList();
+
+        return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
+    }
+
     @GetMapping("/{flightId}")
     public ResponseEntity<FlightDTO> getFlightById(@PathVariable @NotBlank String flightId) {
         Flight flightById = flightService.findById(flightId);

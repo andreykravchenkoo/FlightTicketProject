@@ -3,6 +3,7 @@ package com.example.FlightTicketProject.service.impl;
 import com.example.FlightTicketProject.entity.Ticket;
 import com.example.FlightTicketProject.exception.TicketNotFoundException;
 import com.example.FlightTicketProject.repository.TicketRepository;
+import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void update(Ticket ticket) {
         ticketRepository.save(ticket);
+    }
+
+    @Override
+    public List<Ticket> findAllByUser() {
+        return ticketRepository.findAllByUser(JwtAuthenticationFilter.getCurrentUserEmail());
     }
 }

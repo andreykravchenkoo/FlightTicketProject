@@ -18,4 +18,6 @@ public interface FlightService {
     void update(Flight flight);
 
     double findPriceFlightByPaymentId(long paymentId);
+
+    List<Flight> findAllByUser();
 }
