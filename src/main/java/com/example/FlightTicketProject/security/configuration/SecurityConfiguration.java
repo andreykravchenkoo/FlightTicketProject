@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .antMatchers("/api/authentication/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui/**", "/webjars/**")
                 .permitAll()
-                .antMatchers("/api/airports/**", "/api/booking/**", "/api/flights/search", "/api/flights/user","/api/payments/execute", "/api/payments/user", "/api/tickets/user")
+                .antMatchers("/api/airports/**", "/api/booking/**", "/api/flights/search", "/api/flights/user","/api/payments/execute", "/api/payments/user", "/api/tickets/user", "/api/users/info")
                 .hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/api/**")
                 .hasAuthority("ADMIN")

@@ -13,4 +13,6 @@ public interface UserService {
     User save(User user);
 
     void update(User user);
+
+    User findByEmail();
 }

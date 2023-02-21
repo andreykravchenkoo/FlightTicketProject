@@ -12,9 +12,6 @@ public class BookTicketDTO {
     @NotBlank(message = "ID is required")
     private String flightId;
 
-    @NotBlank(message = "Owner is required")
-    private String owner;
-
     @NotBlank(message = "Seat is required")
     private String seat;
 }

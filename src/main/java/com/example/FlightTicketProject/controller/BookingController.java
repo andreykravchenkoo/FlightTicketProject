@@ -30,9 +30,7 @@ public class BookingController {
     public ResponseEntity<TicketInfoWIthPaymentIdDTO> bookTicket(@RequestBody @Valid BookTicketDTO bookTicketDTO) {
         log.info("Received request to book a ticket for flight with id = {}", bookTicketDTO.getFlightId());
 
-        Ticket ticket = bookingTicketFacade.bookTicket(bookTicketDTO.getFlightId(),
-                bookTicketDTO.getOwner(),
-                bookTicketDTO.getSeat());
+        Ticket ticket = bookingTicketFacade.bookTicket(bookTicketDTO.getFlightId(), bookTicketDTO.getSeat());
 
         log.info("Ticket booking successful with id = {}", ticket.getId());
         return new ResponseEntity<>(EntityDTOMapper.mapTicketAndPaymentIdToTicketInfoWIthPaymentIdDTO(ticket, ticket.getPayment().getId()), HttpStatus.CREATED);

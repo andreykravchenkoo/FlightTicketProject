@@ -38,6 +38,13 @@ public class UserController {
         return new ResponseEntity<>(EntityDTOMapper.mapUserToUserDTO(userById), HttpStatus.OK);
     }
 
+    @GetMapping("/info")
+    public ResponseEntity<UserDTO> getUserByEmail() {
+        User user = userService.findByEmail();
+
+        return new ResponseEntity<>(EntityDTOMapper.mapUserToUserDTO(user), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<UserDTO> saveUser(@RequestBody @Valid UserDTO userDTO) {
         User user = EntityDTOMapper.mapUserDTOToEntity(userDTO);
