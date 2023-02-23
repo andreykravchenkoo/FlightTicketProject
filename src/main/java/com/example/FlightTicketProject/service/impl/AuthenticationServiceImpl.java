@@ -5,7 +5,6 @@ import com.example.FlightTicketProject.dto.AuthenticationResponseDTO;
 import com.example.FlightTicketProject.dto.RegisterRequestDTO;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.entity.UserRole;
-import com.example.FlightTicketProject.exception.EmailAlreadyTakenException;
 import com.example.FlightTicketProject.exception.UserNotFoundException;
 import com.example.FlightTicketProject.repository.UserRepository;
 import com.example.FlightTicketProject.security.service.JwtTokenService;
@@ -37,10 +36,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 passwordEncoder.encode(requestDTO.getPassword()),
                 UserRole.USER
         );
-
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new EmailAlreadyTakenException("Email = " + user.getEmail() + " already taken");
-        }
 
         userRepository.save(user);
 

@@ -1,6 +1,7 @@
 package com.example.FlightTicketProject.service.impl;
 
 import com.example.FlightTicketProject.entity.User;
+import com.example.FlightTicketProject.exception.EmailAlreadyTakenException;
 import com.example.FlightTicketProject.exception.UserNotFoundException;
 import com.example.FlightTicketProject.repository.UserRepository;
 import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;

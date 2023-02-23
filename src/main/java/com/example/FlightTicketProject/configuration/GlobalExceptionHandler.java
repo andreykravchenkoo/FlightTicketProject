@@ -3,6 +3,7 @@ package com.example.FlightTicketProject.configuration;
 import com.example.FlightTicketProject.exception.*;
 import com.example.FlightTicketProject.exception.response.ErrorResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,12 +21,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleException(Exception exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
-                HttpStatus.CONFLICT.value(),
-                HttpStatus.CONFLICT,
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST,
                 exception.getMessage()
         );
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -110,35 +111,35 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleInvalidSumException(InvalidSumException exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
-                HttpStatus.CONFLICT.value(),
-                HttpStatus.CONFLICT,
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST,
                 exception.getMessage()
         );
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(EmailAlreadyTakenException.class)
-    public ResponseEntity<ErrorResponse> handleEmailAlreadyTakenException(EmailAlreadyTakenException exception) {
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
-                HttpStatus.CONFLICT.value(),
-                HttpStatus.CONFLICT,
-                exception.getMessage()
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST,
+                "Email already exists"
         );
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(PaymentAlreadyExecuteException.class)
     public ResponseEntity<ErrorResponse> handlePaymentAlreadyExecuteException(PaymentAlreadyExecuteException exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
-                HttpStatus.CONFLICT.value(),
-                HttpStatus.CONFLICT,
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST,
                 exception.getMessage()
         );
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }
