@@ -1,13 +1,17 @@
 package com.example.FlightTicketProject.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class AirportInfoDTO {
+@Builder
+public class AirportInfoDto {
 
-    private String IATACode;
+    private String airportCode;
 
     private String airportName;
 

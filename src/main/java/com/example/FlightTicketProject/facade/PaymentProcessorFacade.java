@@ -4,6 +4,8 @@ import com.example.FlightTicketProject.entity.Payment;
 import com.example.FlightTicketProject.entity.PaymentStatus;
 import com.example.FlightTicketProject.exception.InvalidSumException;
 import com.example.FlightTicketProject.exception.PaymentAlreadyExecuteException;
+import com.example.FlightTicketProject.exception.UnauthorizedAccessException;
+import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ public class PaymentProcessorFacade {
         log.info("Execute payment with this data: paymentId = {}, sum = {}", paymentId, sum);
 
         Payment payment = paymentService.findById(paymentId);
+
+        checkOwner(payment.getTicket().getUser().getEmail());
 
         checkExecution(payment.getStatus());
 
@@ -48,8 +52,16 @@ public class PaymentProcessorFacade {
 
     private void checkSum(double sum, double priceFlight) {
         if (sum < priceFlight || sum > priceFlight) {
-            log.warn("The payment sum does not match the price of the flight. Sum = {}, priceFlight = {}", sum, priceFlight);
+            log.warn("Payment sum does not match the price of the flight. Sum = {}, priceFlight = {}", sum, priceFlight);
             throw new InvalidSumException("Invalid sum = " + sum + " because price of the flight = " + priceFlight);
+        }
+    }
+
+    private void checkOwner(String email) {
+        String currentUserEmail = JwtAuthenticationFilter.getCurrentUserEmail();
+        if (!email.equals(currentUserEmail)) {
+            log.warn("User not authorized to execute payment. Owner payment = {}, current user = {}", email, currentUserEmail);
+            throw new UnauthorizedAccessException("User not authorized to execute payment");
         }
     }
 }

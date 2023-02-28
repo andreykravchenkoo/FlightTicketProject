@@ -1,6 +1,8 @@
 package com.example.FlightTicketProject.entity;
 
+import com.example.FlightTicketProject.dto.FlightDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "flights")
 public class Flight {
 
@@ -62,5 +65,18 @@ public class Flight {
     public boolean removeTicket(Ticket ticket) {
         ticket.setFlight(null);
         return tickets.remove(ticket);
+    }
+
+    public FlightDto toDto() {
+        return FlightDto.builder()
+                .id(this.id)
+                .origin(this.origin)
+                .destination(this.destination)
+                .departure(this.departure)
+                .arrival(this.arrival)
+                .price(this.price)
+                .fareClass(this.fareClass)
+                .carrier(this.carrier)
+                .build();
     }
 }

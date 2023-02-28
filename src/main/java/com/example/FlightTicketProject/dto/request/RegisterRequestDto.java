@@ -1,4 +1,4 @@
-package com.example.FlightTicketProject.dto;
+package com.example.FlightTicketProject.dto.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
-public class RegisterRequestDTO {
+public class RegisterRequestDto {
 
     @NotBlank(message = "Firstname is required")
     private String firstname;

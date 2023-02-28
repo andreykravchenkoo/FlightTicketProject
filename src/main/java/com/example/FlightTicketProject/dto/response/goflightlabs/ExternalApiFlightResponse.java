@@ -1,8 +1,13 @@
-package com.example.FlightTicketProject.dto.response;
+package com.example.FlightTicketProject.dto.response.goflightlabs;
 
+import com.example.FlightTicketProject.dto.FlightDto;
+import com.example.FlightTicketProject.entity.FareClassStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
@@ -26,12 +31,28 @@ public class ExternalApiFlightResponse {
     }
 
     @lombok.Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
         private String id;
         private String fareClass;
         private Price price;
         private List<Leg> legs;
+
+        public FlightDto toDto() {
+            return FlightDto.builder()
+                    .id(this.id)
+                    .origin(this.legs.get(0).getOrigin().getName())
+                    .destination(this.legs.get(0).getDestination().getName())
+                    .departure(this.legs.get(0).getDeparture())
+                    .arrival(this.legs.get(0).getArrival())
+                    .price(this.price.getRaw())
+                    .fareClass(FareClassStatus.valueOf(this.fareClass.toUpperCase()))
+                    .carrier(this.legs.get(0).getCarriers().getMarketing().get(0).getName())
+                    .build();
+        }
     }
 
     @lombok.Data

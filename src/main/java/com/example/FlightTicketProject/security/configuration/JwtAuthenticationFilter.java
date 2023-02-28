@@ -1,7 +1,7 @@
 package com.example.FlightTicketProject.security.configuration;
 
 import com.example.FlightTicketProject.exception.response.ErrorResponse;
-import com.example.FlightTicketProject.security.service.JwtTokenService;
+import com.example.FlightTicketProject.security.service.token.JwtTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

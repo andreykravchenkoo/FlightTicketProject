@@ -1,8 +1,7 @@
 package com.example.FlightTicketProject.controller;
 
-import com.example.FlightTicketProject.dto.UserDTO;
+import com.example.FlightTicketProject.dto.UserDto;
 import com.example.FlightTicketProject.entity.User;
-import com.example.FlightTicketProject.mapper.EntityDTOMapper;
 import com.example.FlightTicketProject.service.UserService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Api("Test user controller")
+@Api("User controller")
 @RequestMapping("/api/users")
 @RestController
 public class UserController {
@@ -23,34 +22,34 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserDTO> usersDTO = userService.findAll().stream()
-                .map(EntityDTOMapper::mapUserToUserDTO)
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> usersDto = userService.findAll().stream()
+                .map(User::toDto)
                 .toList();
 
-        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
+        return ResponseEntity.ok(usersDto);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable @Min(1) long userId) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable @Min(1) long userId) {
         User userById = userService.findById(userId);
 
-        return new ResponseEntity<>(EntityDTOMapper.mapUserToUserDTO(userById), HttpStatus.OK);
+        return ResponseEntity.ok(userById.toDto());
     }
 
     @GetMapping("/info")
-    public ResponseEntity<UserDTO> getUserByEmail() {
+    public ResponseEntity<UserDto> getUserByEmail() {
         User user = userService.findByEmail();
 
-        return new ResponseEntity<>(EntityDTOMapper.mapUserToUserDTO(user), HttpStatus.OK);
+        return ResponseEntity.ok(user.toDto());
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> saveUser(@RequestBody @Valid UserDTO userDTO) {
-        User user = EntityDTOMapper.mapUserDTOToEntity(userDTO);
+    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
+        User user = userDto.toEntity();
 
         User savedUser = userService.save(user);
 
-        return new ResponseEntity<>(EntityDTOMapper.mapUserToUserDTO(savedUser), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser.toDto());
     }
 }

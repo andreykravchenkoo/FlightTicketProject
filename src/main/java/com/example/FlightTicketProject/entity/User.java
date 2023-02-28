@@ -1,6 +1,8 @@
 package com.example.FlightTicketProject.entity;
 
+import com.example.FlightTicketProject.dto.UserDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +18,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User implements UserDetails {
 
@@ -88,5 +91,16 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserDto toDto() {
+        return UserDto.builder()
+                .id(this.id)
+                .firstname(this.firstname)
+                .lastname(this.lastname)
+                .email(this.email)
+                .password(this.password)
+                .role(this.role)
+                .build();
     }
 }

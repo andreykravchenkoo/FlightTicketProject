@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
-public class BookTicketDTO {
+public class BookTicketDto {
 
     @NotBlank(message = "ID is required")
     private String flightId;

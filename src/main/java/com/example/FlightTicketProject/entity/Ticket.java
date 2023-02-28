@@ -1,6 +1,9 @@
 package com.example.FlightTicketProject.entity;
 
+import com.example.FlightTicketProject.dto.TicketDto;
+import com.example.FlightTicketProject.dto.TicketInfoWithPaymentIdDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +13,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "tickets")
 public class Ticket {
 
@@ -38,5 +42,22 @@ public class Ticket {
     public Ticket(String owner, String seat) {
         this.owner = owner;
         this.seat = seat;
+    }
+
+    public TicketDto toDto() {
+        return TicketDto.builder()
+                .id(this.id)
+                .owner(this.owner)
+                .seat(this.seat)
+                .build();
+    }
+
+    public TicketInfoWithPaymentIdDto toDtoWithPaymentId(long paymentId) {
+        return TicketInfoWithPaymentIdDto.builder()
+                .ticketId(this.id)
+                .owner(this.owner)
+                .seat(this.seat)
+                .paymentId(paymentId)
+                .build();
     }
 }

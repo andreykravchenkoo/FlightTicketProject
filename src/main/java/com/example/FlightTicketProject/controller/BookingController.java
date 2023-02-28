@@ -1,10 +1,9 @@
 package com.example.FlightTicketProject.controller;
 
-import com.example.FlightTicketProject.dto.BookTicketDTO;
-import com.example.FlightTicketProject.dto.TicketInfoWIthPaymentIdDTO;
+import com.example.FlightTicketProject.dto.BookTicketDto;
+import com.example.FlightTicketProject.dto.TicketInfoWithPaymentIdDto;
 import com.example.FlightTicketProject.entity.Ticket;
 import com.example.FlightTicketProject.facade.BookingTicketFacade;
-import com.example.FlightTicketProject.mapper.EntityDTOMapper;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@Api(tags = "Test booking controller")
+@Api(tags = "Booking controller")
 @RequestMapping("/api/booking")
 @RestController
 @Slf4j
@@ -27,12 +26,12 @@ public class BookingController {
     private final BookingTicketFacade bookingTicketFacade;
 
     @PostMapping("/{flightId}")
-    public ResponseEntity<TicketInfoWIthPaymentIdDTO> bookTicket(@RequestBody @Valid BookTicketDTO bookTicketDTO) {
-        log.info("Received request to book a ticket for flight with id = {}", bookTicketDTO.getFlightId());
+    public ResponseEntity<TicketInfoWithPaymentIdDto> bookTicket(@RequestBody @Valid BookTicketDto bookTicketDto) {
+        log.info("Received request to book a ticket for flight with id = {}", bookTicketDto.getFlightId());
 
-        Ticket ticket = bookingTicketFacade.bookTicket(bookTicketDTO.getFlightId(), bookTicketDTO.getSeat());
+        Ticket ticket = bookingTicketFacade.bookTicket(bookTicketDto.getFlightId(), bookTicketDto.getSeat());
 
         log.info("Ticket booking successful with id = {}", ticket.getId());
-        return new ResponseEntity<>(EntityDTOMapper.mapTicketAndPaymentIdToTicketInfoWIthPaymentIdDTO(ticket, ticket.getPayment().getId()), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ticket.toDtoWithPaymentId(ticket.getPayment().getId()));
     }
 }

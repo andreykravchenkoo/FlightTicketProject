@@ -1,4 +1,4 @@
-package com.example.FlightTicketProject.service.impl;
+package com.example.FlightTicketProject.security.service.impl;
 
 import com.example.FlightTicketProject.exception.UserNotFoundException;
 import com.example.FlightTicketProject.repository.UserRepository;

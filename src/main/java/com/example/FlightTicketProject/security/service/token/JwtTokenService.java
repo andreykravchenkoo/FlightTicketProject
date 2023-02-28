@@ -1,10 +1,11 @@
-package com.example.FlightTicketProject.security.service;
+package com.example.FlightTicketProject.security.service.token;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,10 @@ import java.util.function.Function;
 @Service
 public class JwtTokenService {
 
-    private static final String SECRET_KEY = "7639792442264528482B4D6251655468576D5A7134743777217A25432A462D4A";
+    @Value("${jwt.secret.key}")
+    private String secretKey;
+
+    private static final long TOKEN_VALIDITY = 1000 * 60 * 24;
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -29,13 +33,13 @@ public class JwtTokenService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

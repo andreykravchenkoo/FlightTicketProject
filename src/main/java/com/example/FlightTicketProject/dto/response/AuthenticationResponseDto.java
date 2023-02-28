@@ -1,13 +1,13 @@
-package com.example.FlightTicketProject.dto;
+package com.example.FlightTicketProject.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationResponseDTO {
+@NoArgsConstructor
+public class AuthenticationResponseDto {
 
     private String token;
 }

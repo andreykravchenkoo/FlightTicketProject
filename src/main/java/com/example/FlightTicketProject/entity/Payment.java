@@ -1,6 +1,8 @@
 package com.example.FlightTicketProject.entity;
 
+import com.example.FlightTicketProject.dto.PaymentDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "payments")
 public class Payment {
 
@@ -38,5 +41,15 @@ public class Payment {
         this.owner = owner;
         this.date = date;
         this.status = status;
+    }
+
+    public PaymentDto toDto() {
+        return PaymentDto.builder()
+                .id(this.id)
+                .owner(this.owner)
+                .sum(this.sum)
+                .date(this.date)
+                .status(this.status)
+                .build();
     }
 }

@@ -1,7 +1,7 @@
 package com.example.FlightTicketProject.service.rest;
 
-import com.example.FlightTicketProject.dto.response.ExternalApiAirportResponse;
-import com.example.FlightTicketProject.dto.response.ExternalApiFlightResponse;
+import com.example.FlightTicketProject.dto.response.goflightlabs.ExternalApiAirportResponse;
+import com.example.FlightTicketProject.dto.response.goflightlabs.ExternalApiFlightResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

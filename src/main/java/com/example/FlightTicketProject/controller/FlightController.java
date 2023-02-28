@@ -1,10 +1,9 @@
 package com.example.FlightTicketProject.controller;
 
-import com.example.FlightTicketProject.dto.FlightDTO;
+import com.example.FlightTicketProject.dto.FlightDto;
 import com.example.FlightTicketProject.entity.Flight;
-import com.example.FlightTicketProject.mapper.EntityDTOMapper;
-import com.example.FlightTicketProject.dto.response.ExternalApiFlightResponse;
-import com.example.FlightTicketProject.service.FlightService;;
+import com.example.FlightTicketProject.dto.response.goflightlabs.ExternalApiFlightResponse;
+import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.rest.GoflightlabsClientService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Api(tags = "Test flight controller")
+@Api(tags = "Flight controller")
 @RequestMapping("/api/flights")
 @RestController
 @Slf4j
@@ -32,16 +31,16 @@ public class FlightController {
     private final GoflightlabsClientService goflightlabsClientService;
 
     @GetMapping
-    public ResponseEntity<List<FlightDTO>> getAllFlights() {
-        List<FlightDTO> flightsDTO = flightService.findAll().stream()
-                .map(EntityDTOMapper::mapFlightToFlightDTO)
+    public ResponseEntity<List<FlightDto>> getAllFlights() {
+        List<FlightDto> flightsDTO = flightService.findAll().stream()
+                .map(Flight::toDto)
                 .toList();
 
-        return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
+        return ResponseEntity.ok(flightsDTO);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Set<FlightDTO>> getFlightsByFilter(@RequestParam(value = "adults") @NotBlank String adults,
+    public ResponseEntity<Set<FlightDto>> getFlightsByFilter(@RequestParam(value = "adults") @NotBlank String adults,
                                                              @RequestParam(value = "origin") @NotBlank String origin,
                                                              @RequestParam(value = "destination") @NotBlank String destination,
                                                              @RequestParam(value = "departureDate") @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$") String departureDate,
@@ -50,40 +49,40 @@ public class FlightController {
 
         Set<ExternalApiFlightResponse.Item> responseFlights = goflightlabsClientService.findFlightsByFilter(adults, origin, destination, departureDate, fareClass);
 
-        Set<FlightDTO> flightsDTO = responseFlights.stream()
-                .map(EntityDTOMapper::mapExternalApiFlightResponseToFLightDTO)
+        Set<FlightDto> flightsDto = responseFlights.stream()
+                .map(ExternalApiFlightResponse.Item::toDto)
                 .collect(Collectors.toSet());
 
-        flightService.saveAll(flightsDTO.stream()
-                .map(EntityDTOMapper::mapFlightDTOToEntity)
+        flightService.saveAll(flightsDto.stream()
+                .map(FlightDto::toEntity)
                 .collect(Collectors.toSet()));
 
         log.info("Request get flights by filter completed successfully");
-        return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
+        return ResponseEntity.ok(flightsDto);
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<FlightDTO>> getAllFlightByUser() {
-        List<FlightDTO> flightsDTO = flightService.findAllByUser().stream()
-                .map(EntityDTOMapper::mapFlightToFlightDTO)
+    public ResponseEntity<List<FlightDto>> getAllFlightByUser() {
+        List<FlightDto> flightsDTO = flightService.findAllByUser().stream()
+                .map(Flight::toDto)
                 .toList();
 
-        return new ResponseEntity<>(flightsDTO, HttpStatus.OK);
+        return ResponseEntity.ok(flightsDTO);
     }
 
     @GetMapping("/{flightId}")
-    public ResponseEntity<FlightDTO> getFlightById(@PathVariable @NotBlank String flightId) {
+    public ResponseEntity<FlightDto> getFlightById(@PathVariable @NotBlank String flightId) {
         Flight flightById = flightService.findById(flightId);
 
-        return new ResponseEntity<>(EntityDTOMapper.mapFlightToFlightDTO(flightById), HttpStatus.OK);
+        return ResponseEntity.ok(flightById.toDto());
     }
 
     @PostMapping
-    public ResponseEntity<FlightDTO> saveFlight(@RequestBody @Valid FlightDTO flightDTO) {
-        Flight flight = EntityDTOMapper.mapFlightDTOToEntity(flightDTO);
+    public ResponseEntity<FlightDto> saveFlight(@RequestBody @Valid FlightDto flightDto) {
+        Flight flight = flightDto.toEntity();
 
         Flight savedFlight = flightService.save(flight);
 
-        return new ResponseEntity<>(EntityDTOMapper.mapFlightToFlightDTO(savedFlight), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedFlight.toDto());
     }
 }

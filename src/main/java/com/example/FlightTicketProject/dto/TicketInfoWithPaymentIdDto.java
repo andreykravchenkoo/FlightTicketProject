@@ -1,11 +1,16 @@
 package com.example.FlightTicketProject.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class TicketInfoWIthPaymentIdDTO {
+@Builder
+public class TicketInfoWithPaymentIdDto {
+
     private long ticketId;
 
     private String owner;

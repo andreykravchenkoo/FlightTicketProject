@@ -1,9 +1,8 @@
 package com.example.FlightTicketProject.controller;
 
-import com.example.FlightTicketProject.dto.PaymentDTO;
+import com.example.FlightTicketProject.dto.PaymentDto;
 import com.example.FlightTicketProject.entity.Payment;
 import com.example.FlightTicketProject.facade.PaymentProcessorFacade;
-import com.example.FlightTicketProject.mapper.EntityDTOMapper;
 import com.example.FlightTicketProject.service.PaymentService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Api("Test payment controller")
+@Api("Payment controller")
 @RequestMapping("/api/payments")
 @RestController
 @Slf4j
@@ -28,47 +27,47 @@ public class PaymentController {
     private final PaymentProcessorFacade paymentProcessorFacade;
 
     @GetMapping
-    public ResponseEntity<List<PaymentDTO>> getAllPayments() {
-        List<PaymentDTO> paymentsDTO = paymentService.findAll().stream()
-                .map(EntityDTOMapper::mapPaymentToPaymentDTO)
+    public ResponseEntity<List<PaymentDto>> getAllPayments() {
+        List<PaymentDto> paymentsDto = paymentService.findAll().stream()
+                .map(Payment::toDto)
                 .toList();
 
-        return new ResponseEntity<>(paymentsDTO, HttpStatus.OK);
+        return ResponseEntity.ok(paymentsDto);
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<PaymentDTO>> getAllPaymentsByUser() {
-        List<PaymentDTO> paymentsDTO = paymentService.findAllByUser().stream()
-                .map(EntityDTOMapper::mapPaymentToPaymentDTO)
+    public ResponseEntity<List<PaymentDto>> getAllPaymentsByUser() {
+        List<PaymentDto> paymentsDto = paymentService.findAllByUser().stream()
+                .map(Payment::toDto)
                 .toList();
 
-        return new ResponseEntity<>(paymentsDTO, HttpStatus.OK);
+        return ResponseEntity.ok(paymentsDto);
     }
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable @Min(1) long paymentId) {
+    public ResponseEntity<PaymentDto> getPaymentById(@PathVariable @Min(1) long paymentId) {
         Payment paymentById = paymentService.findById(paymentId);
 
-        return new ResponseEntity<>(EntityDTOMapper.mapPaymentToPaymentDTO(paymentById), HttpStatus.OK);
+        return ResponseEntity.ok(paymentById.toDto());
     }
 
     @PostMapping
-    public ResponseEntity<PaymentDTO> savePayment(@Valid @RequestBody PaymentDTO paymentDTO) {
-        Payment payment = EntityDTOMapper.mapPaymentDTOToEntity(paymentDTO);
+    public ResponseEntity<PaymentDto> savePayment(@Valid @RequestBody PaymentDto paymentDto) {
+        Payment payment = paymentDto.toEntity();
 
         Payment savedPayment = paymentService.save(payment);
 
-        return new ResponseEntity<>(EntityDTOMapper.mapPaymentToPaymentDTO(savedPayment), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedPayment.toDto());
     }
 
     @PostMapping("/execute")
-    public ResponseEntity<PaymentDTO> executePayment(@Min(1) @RequestParam(value = "paymentId") long paymentId,
+    public ResponseEntity<PaymentDto> executePayment(@Min(1) @RequestParam(value = "paymentId") long paymentId,
                                                      @RequestParam(value = "sum") @Min(1) double sum) {
         log.info("Received request to execute a payment with id = {}", paymentId);
 
         Payment payment = paymentProcessorFacade.executePayment(paymentId, sum);
 
         log.info("Payment executed successful with id = {}", payment.getId());
-        return new ResponseEntity<>(EntityDTOMapper.mapPaymentToPaymentDTO(payment), HttpStatus.OK);
+        return ResponseEntity.ok(payment.toDto());
     }
 }

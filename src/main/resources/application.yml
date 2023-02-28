@@ -20,7 +20,7 @@ spring:
     defer-datasource-initialization: true
     show-sql: true
 
-## API Access Key
+## Goflightlabs
 url:
   access-key:
   base: https://app.goflightlabs.com
@@ -29,3 +29,8 @@ url:
 server:
   servlet:
     context-path: /air-ticket-booking
+
+## Security secret key
+jwt:
+  secret:
+    key: 7639792442264528482B4D6251655468576D5A7134743777217A25432A462D4A
