@@ -4,6 +4,7 @@ import com.example.FlightTicketProject.exception.response.ErrorResponse;
 import com.example.FlightTicketProject.security.service.token.JwtTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenService jwtTokenService;
@@ -36,6 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
+        log.debug("Processing request with JWT authentication filter");
 
         try {
             final String authHeader = request.getHeader("Authorization");
@@ -68,7 +71,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
 
+            log.debug("Processing request with JWT authentication filter succeeded");
+
         } catch (RuntimeException exception) {
+            log.warn("JWT failed authentication, thrown exception");
+
             ErrorResponse errorResponse = new ErrorResponse(
                     new Date(),
                     HttpStatus.UNAUTHORIZED.value(),

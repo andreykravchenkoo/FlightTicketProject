@@ -41,6 +41,16 @@ public class FlightDto {
     @NotBlank(message = "Carrier is required")
     private String carrier;
 
+    public FlightDto(String id, String origin, String destination, Date departure, Date arrival, double price, String carrier) {
+        this.id = id;
+        this.origin = origin;
+        this.destination = destination;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.price = price;
+        this.carrier = carrier;
+    }
+
     public Flight toEntity() {
         return Flight.builder()
                 .id(this.id)
