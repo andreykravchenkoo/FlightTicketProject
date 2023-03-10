@@ -1,0 +1,35 @@
+{
+  "success": true,
+  "data": [
+    {
+      "iata_code": "BER",
+      "name": "Berlin Brandenburg",
+      "city": "Berlin",
+      "country": "Germany"
+    },
+    {
+      "iata_code": "BGO",
+      "name": "Bergen",
+      "city": "Bergen",
+      "country": "Norway"
+    },
+    {
+      "iata_code": "BRN",
+      "name": "Bern",
+      "city": "Bern",
+      "country": "Switzerland"
+    },
+    {
+      "iata_code": "BZE",
+      "name": "Belize City Philip S.W.Goldson Int",
+      "city": "Belize City",
+      "country": "Belize"
+    },
+    {
+      "iata_code": "BNI",
+      "name": "Benin City",
+      "city": "Benin City",
+      "country": "Nigeria"
+    }
+  ]
+}

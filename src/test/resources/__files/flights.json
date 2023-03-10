@@ -1,0 +1,1340 @@
+{
+  "success": true,
+  "data": {
+    "buckets": [
+      {
+        "id": "Best",
+        "name": "Best",
+        "items": [
+          {
+            "id": "13771-2303141635--32356-0-13870-2303142005",
+            "price": {
+              "raw": 53.11,
+              "formatted": "54 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13771-2303141635--32356-0-13870-2303142005",
+                "origin": {
+                  "id": "LTN",
+                  "name": "London Luton",
+                  "displayCode": "LTN",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 150,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T16:35:00",
+                "arrival": "2023-03-14T20:05:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13771-13870-2303141635-2303142005--32356",
+                    "origin": {
+                      "flightPlaceId": "LTN",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Luton",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T16:35:00",
+                    "arrival": "2023-03-14T20:05:00",
+                    "durationInMinutes": 150,
+                    "flightNumber": "2203",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "cheapest",
+              "third_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.576062,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 53.11,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13771-2303141635--32356-0-13870-2303142005?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13542-2303140725--32356-0-13870-2303141100",
+            "price": {
+              "raw": 57.63,
+              "formatted": "58 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13542-2303140725--32356-0-13870-2303141100",
+                "origin": {
+                  "id": "LGW",
+                  "name": "London Gatwick",
+                  "displayCode": "LGW",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 155,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T07:25:00",
+                "arrival": "2023-03-14T11:00:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13542-13870-2303140725-2303141100--32356",
+                    "origin": {
+                      "flightPlaceId": "LGW",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Gatwick",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T07:25:00",
+                    "arrival": "2023-03-14T11:00:00",
+                    "durationInMinutes": 155,
+                    "flightNumber": "8275",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "second_cheapest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.513756,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 57.63,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13542-2303140725--32356-0-13870-2303141100?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13542-2303141205--32356-0-13870-2303141535",
+            "price": {
+              "raw": 59.89,
+              "formatted": "60 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13542-2303141205--32356-0-13870-2303141535",
+                "origin": {
+                  "id": "LGW",
+                  "name": "London Gatwick",
+                  "displayCode": "LGW",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 150,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T12:05:00",
+                "arrival": "2023-03-14T15:35:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13542-13870-2303141205-2303141535--32356",
+                    "origin": {
+                      "flightPlaceId": "LGW",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Gatwick",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T12:05:00",
+                    "arrival": "2023-03-14T15:35:00",
+                    "durationInMinutes": 150,
+                    "flightNumber": "8277",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "third_cheapest",
+              "third_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.510848,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 59.89,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13542-2303141205--32356-0-13870-2303141535?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          }
+        ]
+      },
+      {
+        "id": "Cheapest",
+        "name": "Cheapest",
+        "items": [
+          {
+            "id": "13771-2303141635--32356-0-13870-2303142005",
+            "price": {
+              "raw": 53.11,
+              "formatted": "54 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13771-2303141635--32356-0-13870-2303142005",
+                "origin": {
+                  "id": "LTN",
+                  "name": "London Luton",
+                  "displayCode": "LTN",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 150,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T16:35:00",
+                "arrival": "2023-03-14T20:05:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13771-13870-2303141635-2303142005--32356",
+                    "origin": {
+                      "flightPlaceId": "LTN",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Luton",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T16:35:00",
+                    "arrival": "2023-03-14T20:05:00",
+                    "durationInMinutes": 150,
+                    "flightNumber": "2203",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "cheapest",
+              "third_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 1,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 53.11,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13771-2303141635--32356-0-13870-2303142005?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13542-2303140725--32356-0-13870-2303141100",
+            "price": {
+              "raw": 57.63,
+              "formatted": "58 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13542-2303140725--32356-0-13870-2303141100",
+                "origin": {
+                  "id": "LGW",
+                  "name": "London Gatwick",
+                  "displayCode": "LGW",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 155,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T07:25:00",
+                "arrival": "2023-03-14T11:00:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13542-13870-2303140725-2303141100--32356",
+                    "origin": {
+                      "flightPlaceId": "LGW",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Gatwick",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T07:25:00",
+                    "arrival": "2023-03-14T11:00:00",
+                    "durationInMinutes": 155,
+                    "flightNumber": "8275",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "second_cheapest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.8011439,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 57.63,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13542-2303140725--32356-0-13870-2303141100?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13542-2303141205--32356-0-13870-2303141535",
+            "price": {
+              "raw": 59.89,
+              "formatted": "60 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13542-2303141205--32356-0-13870-2303141535",
+                "origin": {
+                  "id": "LGW",
+                  "name": "London Gatwick",
+                  "displayCode": "LGW",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 150,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T12:05:00",
+                "arrival": "2023-03-14T15:35:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13542-13870-2303141205-2303141535--32356",
+                    "origin": {
+                      "flightPlaceId": "LGW",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Gatwick",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T12:05:00",
+                    "arrival": "2023-03-14T15:35:00",
+                    "durationInMinutes": 150,
+                    "flightNumber": "8277",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "third_cheapest",
+              "third_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.7017158,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 59.89,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13542-2303141205--32356-0-13870-2303141535?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          }
+        ]
+      },
+      {
+        "id": "Fastest",
+        "name": "Fastest",
+        "items": [
+          {
+            "id": "13542-2303141940--32221-0-13870-2303142300",
+            "price": {
+              "raw": 75.84,
+              "formatted": "76 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13542-2303141940--32221-0-13870-2303142300",
+                "origin": {
+                  "id": "LGW",
+                  "name": "London Gatwick",
+                  "displayCode": "LGW",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 140,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T19:40:00",
+                "arrival": "2023-03-14T23:00:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32221,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/I2.png",
+                      "name": "Iberia Express"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13542-13870-2303141940-2303142300--32221",
+                    "origin": {
+                      "flightPlaceId": "LGW",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Gatwick",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T19:40:00",
+                    "arrival": "2023-03-14T23:00:00",
+                    "durationInMinutes": 140,
+                    "flightNumber": "3717",
+                    "marketingCarrier": {
+                      "id": -32221,
+                      "name": "Iberia Express",
+                      "alternateId": "I2",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32221,
+                      "name": "Iberia Express",
+                      "alternateId": "I2",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 1,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "ibex"
+                ],
+                "amount": 75.84,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13542-2303141940--32221-0-13870-2303142300?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13554-2303141845--32480-0-13870-2303142210",
+            "price": {
+              "raw": 73.36,
+              "formatted": "74 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13554-2303141845--32480-0-13870-2303142210",
+                "origin": {
+                  "id": "LHR",
+                  "name": "London Heathrow",
+                  "displayCode": "LHR",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 145,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T18:45:00",
+                "arrival": "2023-03-14T22:10:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32480,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/BA.png",
+                      "name": "British Airways"
+                    }
+                  ],
+                  "operating": [
+                    {
+                      "id": -32222,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/IB.png",
+                      "name": "Iberia"
+                    }
+                  ],
+                  "operationType": "not_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13554-13870-2303141845-2303142210--32480",
+                    "origin": {
+                      "flightPlaceId": "LHR",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Heathrow",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T18:45:00",
+                    "arrival": "2023-03-14T22:10:00",
+                    "durationInMinutes": 145,
+                    "flightNumber": "7059",
+                    "marketingCarrier": {
+                      "id": -32480,
+                      "name": "British Airways",
+                      "alternateId": "BA",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32222,
+                      "name": "Iberia",
+                      "alternateId": "IB",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "second_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.6666666,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "trup"
+                ],
+                "amount": 73.36,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13554-2303141845--32480-0-13870-2303142210?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13554-2303141845--32222-0-13870-2303142210",
+            "price": {
+              "raw": 75.79,
+              "formatted": "76 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13554-2303141845--32222-0-13870-2303142210",
+                "origin": {
+                  "id": "LHR",
+                  "name": "London Heathrow",
+                  "displayCode": "LHR",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 145,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T18:45:00",
+                "arrival": "2023-03-14T22:10:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32222,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/IB.png",
+                      "name": "Iberia"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13554-13870-2303141845-2303142210--32222",
+                    "origin": {
+                      "flightPlaceId": "LHR",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Heathrow",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T18:45:00",
+                    "arrival": "2023-03-14T22:10:00",
+                    "durationInMinutes": 145,
+                    "flightNumber": "3167",
+                    "marketingCarrier": {
+                      "id": -32222,
+                      "name": "Iberia",
+                      "alternateId": "IB",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32222,
+                      "name": "Iberia",
+                      "alternateId": "IB",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "second_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.6666666,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "iber"
+                ],
+                "amount": 75.79,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13554-2303141845--32222-0-13870-2303142210?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          }
+        ]
+      },
+      {
+        "id": "Direct",
+        "name": "Direct",
+        "items": [
+          {
+            "id": "13771-2303141635--32356-0-13870-2303142005",
+            "price": {
+              "raw": 53.11,
+              "formatted": "54 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13771-2303141635--32356-0-13870-2303142005",
+                "origin": {
+                  "id": "LTN",
+                  "name": "London Luton",
+                  "displayCode": "LTN",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 150,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T16:35:00",
+                "arrival": "2023-03-14T20:05:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13771-13870-2303141635-2303142005--32356",
+                    "origin": {
+                      "flightPlaceId": "LTN",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Luton",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T16:35:00",
+                    "arrival": "2023-03-14T20:05:00",
+                    "durationInMinutes": 150,
+                    "flightNumber": "2203",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "cheapest",
+              "third_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.576062,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 53.11,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13771-2303141635--32356-0-13870-2303142005?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13542-2303140725--32356-0-13870-2303141100",
+            "price": {
+              "raw": 57.63,
+              "formatted": "58 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13542-2303140725--32356-0-13870-2303141100",
+                "origin": {
+                  "id": "LGW",
+                  "name": "London Gatwick",
+                  "displayCode": "LGW",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 155,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T07:25:00",
+                "arrival": "2023-03-14T11:00:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13542-13870-2303140725-2303141100--32356",
+                    "origin": {
+                      "flightPlaceId": "LGW",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Gatwick",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T07:25:00",
+                    "arrival": "2023-03-14T11:00:00",
+                    "durationInMinutes": 155,
+                    "flightNumber": "8275",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "second_cheapest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.513756,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 57.63,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13542-2303140725--32356-0-13870-2303141100?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          },
+          {
+            "id": "13542-2303141205--32356-0-13870-2303141535",
+            "price": {
+              "raw": 59.89,
+              "formatted": "60 \u20ac"
+            },
+            "legs": [
+              {
+                "id": "13542-2303141205--32356-0-13870-2303141535",
+                "origin": {
+                  "id": "LGW",
+                  "name": "London Gatwick",
+                  "displayCode": "LGW",
+                  "city": "London",
+                  "isHighlighted": false
+                },
+                "destination": {
+                  "id": "MAD",
+                  "name": "Madrid",
+                  "displayCode": "MAD",
+                  "city": "Madrid",
+                  "isHighlighted": false
+                },
+                "durationInMinutes": 150,
+                "stopCount": 0,
+                "isSmallestStops": false,
+                "departure": "2023-03-14T12:05:00",
+                "arrival": "2023-03-14T15:35:00",
+                "timeDeltaInDays": 0,
+                "carriers": {
+                  "marketing": [
+                    {
+                      "id": -32356,
+                      "logoUrl": "https:\/\/logos.skyscnr.com\/images\/airlines\/favicon\/EZ.png",
+                      "name": "easyJet"
+                    }
+                  ],
+                  "operationType": "fully_operated"
+                },
+                "segments": [
+                  {
+                    "id": "13542-13870-2303141205-2303141535--32356",
+                    "origin": {
+                      "flightPlaceId": "LGW",
+                      "parent": {
+                        "flightPlaceId": "LOND",
+                        "name": "London",
+                        "type": "City"
+                      },
+                      "name": "London Gatwick",
+                      "type": "Airport"
+                    },
+                    "destination": {
+                      "flightPlaceId": "MAD",
+                      "parent": {
+                        "flightPlaceId": "MADR",
+                        "name": "Madrid",
+                        "type": "City"
+                      },
+                      "name": "Madrid",
+                      "type": "Airport"
+                    },
+                    "departure": "2023-03-14T12:05:00",
+                    "arrival": "2023-03-14T15:35:00",
+                    "durationInMinutes": 150,
+                    "flightNumber": "8277",
+                    "marketingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    },
+                    "operatingCarrier": {
+                      "id": -32356,
+                      "name": "easyJet",
+                      "alternateId": "EZ",
+                      "allianceId": 0
+                    }
+                  }
+                ]
+              }
+            ],
+            "isSelfTransfer": false,
+            "isProtectedSelfTransfer": false,
+            "farePolicy": {
+              "isChangeAllowed": false,
+              "isPartiallyChangeable": false,
+              "isCancellationAllowed": false,
+              "isPartiallyRefundable": false
+            },
+            "fareAttributes": [],
+            "tags": [
+              "third_cheapest",
+              "third_shortest"
+            ],
+            "isMashUp": false,
+            "hasFlexibleOptions": false,
+            "score": 0.510848,
+            "pricingOptions": [
+              {
+                "agentIds": [
+                  "easy"
+                ],
+                "amount": 59.89,
+                "bookingProposition": "PBOOK"
+              }
+            ],
+            "deeplink": "https:\/\/www.skyscanner.net\/transport\/flights\/lond\/mad\/230314\/config\/13542-2303141205--32356-0-13870-2303141535?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27544850&originentityid=27544008&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+          }
+        ]
+      }
+    ]
+  }
+}
