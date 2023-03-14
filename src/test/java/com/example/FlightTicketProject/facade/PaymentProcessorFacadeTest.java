@@ -1,4 +1,4 @@
-package com.example.FlightTicketProject.unit.facade;
+package com.example.FlightTicketProject.facade;
 
 import com.example.FlightTicketProject.entity.Payment;
 import com.example.FlightTicketProject.entity.PaymentStatus;
@@ -7,7 +7,6 @@ import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.exception.InvalidSumException;
 import com.example.FlightTicketProject.exception.PaymentAlreadyExecuteException;
 import com.example.FlightTicketProject.exception.UnauthorizedAccessException;
-import com.example.FlightTicketProject.facade.PaymentProcessorFacade;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +44,7 @@ class PaymentProcessorFacadeTest {
     }
 
     @Test
-    void testShouldSuccessExecutePayment() {
+    void testShouldSuccessfulyExecutePayment() {
         long expectedPaymentId = 1L;
         double expectedSum = 100;
         double expectedFlightPrice = 100;

@@ -25,7 +25,7 @@ public class BookingController {
 
     private final BookingTicketFacade bookingTicketFacade;
 
-    @PostMapping("/{flightId}")
+    @PostMapping
     public ResponseEntity<TicketInfoWithPaymentIdDto> bookTicket(@RequestBody @Valid BookTicketDto bookTicketDto) {
         log.info("Received request to book a ticket for flight with id = {}", bookTicketDto.getFlightId());
 

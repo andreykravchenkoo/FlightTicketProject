@@ -1,4 +1,4 @@
-package com.example.FlightTicketProject.unit.security.configuration;
+package com.example.FlightTicketProject.security.configuration;
 
 import com.example.FlightTicketProject.dto.request.AuthenticationRequestDto;
 import com.example.FlightTicketProject.dto.request.RegisterRequestDto;
@@ -48,6 +48,10 @@ class SecurityConfigurationTest {
 
     @MockBean
     private UserRepository userRepository;
+
+    private static final String EXPECTED_VALID_TOKEN = "validToken";
+
+    private static final String EXPECTED_INVALID_TOKEN = "invalidToken";
 
     @Test
     void testShouldGiveAccessToRegisterResourcesWithoutAuthorization() throws Exception {
@@ -120,72 +124,63 @@ class SecurityConfigurationTest {
 
     @Test
     void testShouldGiveAccessToResourcesWithRoleUser() throws Exception {
-        String expectedToken = "validToken";
         String expectedUserEmail = "test@gmail.com";
 
         User expectedUser = new User();
         expectedUser.setEmail(expectedUserEmail);
         expectedUser.setRole(UserRole.USER);
 
-        when(jwtTokenService.extractUsername(expectedToken)).thenReturn(expectedUserEmail);
+        when(jwtTokenService.extractUsername(EXPECTED_VALID_TOKEN)).thenReturn(expectedUserEmail);
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
-        when(jwtTokenService.isTokenValid(expectedToken, expectedUser)).thenReturn(true);
+        when(jwtTokenService.isTokenValid(EXPECTED_VALID_TOKEN, expectedUser)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/flights/user")
-                        .header("Authorization", "Bearer " + expectedToken))
+                        .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testShouldCloseAccessToResourceWithUserRole() throws Exception {
-        String expectedToken = "validToken";
         String expectedUserEmail = "test@gmail.com";
 
         User expectedUser = new User();
         expectedUser.setEmail(expectedUserEmail);
         expectedUser.setRole(UserRole.USER);
 
-        when(jwtTokenService.extractUsername(expectedToken)).thenReturn(expectedUserEmail);
+        when(jwtTokenService.extractUsername(EXPECTED_VALID_TOKEN)).thenReturn(expectedUserEmail);
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
-        when(jwtTokenService.isTokenValid(expectedToken, expectedUser)).thenReturn(true);
+        when(jwtTokenService.isTokenValid(EXPECTED_VALID_TOKEN, expectedUser)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + expectedToken))
+                        .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     void testGiveAccessToResourcesWithRoleAdmin() throws Exception {
-        String expectedToken = "validToken";
         String expectedUserEmail = "test@gmail.com";
 
         User expectedUser = new User();
         expectedUser.setEmail(expectedUserEmail);
         expectedUser.setRole(UserRole.ADMIN);
 
-        when(jwtTokenService.extractUsername(expectedToken)).thenReturn(expectedUserEmail);
+        when(jwtTokenService.extractUsername(EXPECTED_VALID_TOKEN)).thenReturn(expectedUserEmail);
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
-        when(jwtTokenService.isTokenValid(expectedToken, expectedUser)).thenReturn(true);
+        when(jwtTokenService.isTokenValid(EXPECTED_VALID_TOKEN, expectedUser)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + expectedToken))
+                        .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testCloseAccessToResourcesWithInvalidToken() throws Exception {
-        String expectedToken = "invalidToken";
-        String expectedUserEmail = "test@gmail.com";
         String expectedErrorMessage = "JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted";
 
-        User expectedUser = new User();
-        expectedUser.setEmail(expectedUserEmail);
-        expectedUser.setRole(UserRole.ADMIN);
-
-        when(jwtTokenService.extractUsername(expectedToken)).thenThrow(new RuntimeException(expectedErrorMessage));
+        when(jwtTokenService.extractUsername(EXPECTED_INVALID_TOKEN)).thenThrow(new RuntimeException(expectedErrorMessage));
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + expectedToken))
+                        .header("Authorization", "Bearer " + EXPECTED_INVALID_TOKEN))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
 
@@ -196,7 +191,6 @@ class SecurityConfigurationTest {
 
     @Test
     void testCloseAccessToResourcesWithExpiredToken() throws Exception {
-        String expectedToken = "invalidToken";
         String expectedUserEmail = "test@gmail.com";
         String expectedErrorMessage = "JWT expired at 2023-03-08T19:41:38Z. Current time: 2023-03-08T19:42:04Z, a difference of 26975 milliseconds.  Allowed clock skew: 0 milliseconds.";
 
@@ -204,12 +198,12 @@ class SecurityConfigurationTest {
         expectedUser.setEmail(expectedUserEmail);
         expectedUser.setRole(UserRole.ADMIN);
 
-        when(jwtTokenService.extractUsername(expectedToken)).thenReturn(expectedUserEmail);
+        when(jwtTokenService.extractUsername(EXPECTED_INVALID_TOKEN)).thenReturn(expectedUserEmail);
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
-        when(jwtTokenService.isTokenValid(expectedToken, expectedUser)).thenThrow(new RuntimeException(expectedErrorMessage));
+        when(jwtTokenService.isTokenValid(EXPECTED_INVALID_TOKEN, expectedUser)).thenThrow(new RuntimeException(expectedErrorMessage));
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + expectedToken))
+                        .header("Authorization", "Bearer " + EXPECTED_INVALID_TOKEN))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
 

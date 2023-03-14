@@ -38,7 +38,7 @@ public class Flight {
     private double price;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "fare_сlass")
+    @Column(name = "fare_class")
     private FareClassStatus fareClass;
 
     @Column(name = "carrier")

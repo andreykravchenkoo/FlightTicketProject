@@ -1,8 +1,7 @@
-package com.example.FlightTicketProject.integration.service.rest;
+package com.example.FlightTicketProject.service.rest;
 
 import com.example.FlightTicketProject.dto.AirportInfoDto;
 import com.example.FlightTicketProject.dto.FlightDto;
-import com.example.FlightTicketProject.service.rest.GoflightlabsClientService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;

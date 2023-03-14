@@ -1,8 +1,7 @@
-package com.example.FlightTicketProject.unit.facade;
+package com.example.FlightTicketProject.facade;
 
 import com.example.FlightTicketProject.entity.*;
 import com.example.FlightTicketProject.exception.FlightNotFoundException;
-import com.example.FlightTicketProject.facade.BookingTicketFacade;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
 import com.example.FlightTicketProject.service.TicketService;
@@ -36,7 +35,7 @@ class BookingTicketFacadeTest {
     private BookingTicketFacade bookingTicketFacade;
 
     @Test
-    void testShouldSuccessBookTicket() {
+    void testShouldSuccessfulyBookTicket() {
         String expectedFlightId = "1";
         String expectedSeat = "F10";
 

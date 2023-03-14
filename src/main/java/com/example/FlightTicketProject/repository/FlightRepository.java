@@ -18,6 +18,6 @@ public interface FlightRepository extends JpaRepository<Flight, String> {
     @Query(value = "SELECT f.price FROM payments p JOIN tickets t ON p.id = t.payment_id JOIN flights f ON t.flight_id = f.id WHERE p.id = ?", nativeQuery = true)
     double findPriceFlightByPaymentId(long paymentId);
 
-    @Query(value = "SELECT f.id, f.origin, f.destination, f.departure, f.arrival, f.price, f.fare_сlass, f.carrier FROM flights f JOIN tickets t ON f.id = t.flight_id JOIN users u ON u.id = t.user_id WHERE u.email = ?", nativeQuery = true)
+    @Query(value = "SELECT f.id, f.origin, f.destination, f.departure, f.arrival, f.price, f.fare_class, f.carrier FROM flights f JOIN tickets t ON f.id = t.flight_id JOIN users u ON u.id = t.user_id WHERE u.email = ?", nativeQuery = true)
     List<Flight> findAllByUser(String email);
 }
