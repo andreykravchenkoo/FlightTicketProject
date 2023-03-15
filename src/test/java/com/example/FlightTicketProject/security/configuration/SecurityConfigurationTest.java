@@ -2,10 +2,11 @@ package com.example.FlightTicketProject.security.configuration;
 
 import com.example.FlightTicketProject.dto.request.AuthenticationRequestDto;
 import com.example.FlightTicketProject.dto.request.RegisterRequestDto;
+import com.example.FlightTicketProject.dto.response.AuthenticationResponseDto;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.entity.UserRole;
 import com.example.FlightTicketProject.exception.UserNotFoundException;
-import com.example.FlightTicketProject.repository.UserRepository;
+import com.example.FlightTicketProject.security.service.AuthenticationService;
 import com.example.FlightTicketProject.security.service.token.JwtTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -16,11 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles(profiles = "test")
 class SecurityConfigurationTest {
 
     @Autowired
@@ -42,12 +43,12 @@ class SecurityConfigurationTest {
     @MockBean
     private UserDetailsService userDetailsService;
 
+    @MockBean
+    private AuthenticationService authenticationService;
+
     // Controversial moment, without it, I can't check the Authenticate test yet
     @MockBean
     private AuthenticationManager authenticationManager;
-
-    @MockBean
-    private UserRepository userRepository;
 
     private static final String EXPECTED_VALID_TOKEN = "validToken";
 
@@ -79,17 +80,20 @@ class SecurityConfigurationTest {
         String expectedUserEmail = "test@gmail.com";
         String expectedPassword = "test";
 
-        AuthenticationRequestDto requestDto = new AuthenticationRequestDto();
-        requestDto.setEmail(expectedUserEmail);
-        requestDto.setPassword(expectedPassword);
+        AuthenticationRequestDto expectedRequestDto = new AuthenticationRequestDto();
+        expectedRequestDto.setEmail(expectedUserEmail);
+        expectedRequestDto.setPassword(expectedPassword);
+
+        AuthenticationResponseDto expectedResponseDto = new AuthenticationResponseDto();
+        expectedResponseDto.setToken(EXPECTED_VALID_TOKEN);
 
         User expectedUser = new User();
         expectedUser.setEmail(expectedUserEmail);
         expectedUser.setRole(UserRole.USER);
 
-        String requestBody = objectMapper.writeValueAsString(requestDto);
+        String requestBody = objectMapper.writeValueAsString(expectedRequestDto);
 
-        when(userRepository.findByEmail(expectedUserEmail)).thenReturn(Optional.of(expectedUser));
+        when(authenticationService.authenticate(expectedRequestDto)).thenReturn(expectedResponseDto);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/authenticate")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -103,13 +107,16 @@ class SecurityConfigurationTest {
         String expectedPassword = "test";
         String expectedErrorMessage = "User by email = " + expectedUserEmail + " not found";
 
-        AuthenticationRequestDto requestDto = new AuthenticationRequestDto();
-        requestDto.setEmail(expectedUserEmail);
-        requestDto.setPassword(expectedPassword);
+        AuthenticationRequestDto expectedRequestDto = new AuthenticationRequestDto();
+        expectedRequestDto.setEmail(expectedUserEmail);
+        expectedRequestDto.setPassword(expectedPassword);
 
-        String requestBody = objectMapper.writeValueAsString(requestDto);
+        AuthenticationResponseDto expectedResponseDto = new AuthenticationResponseDto();
+        expectedResponseDto.setToken(EXPECTED_VALID_TOKEN);
 
-        when(userRepository.findByEmail(expectedUserEmail)).thenThrow(new UserNotFoundException("User by email = " + requestDto.getEmail() + " not found"));
+        String requestBody = objectMapper.writeValueAsString(expectedRequestDto);
+
+        when(authenticationService.authenticate(expectedRequestDto)).thenThrow(new UserNotFoundException("User by email = " + expectedRequestDto.getEmail() + " not found"));
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/authenticate")
                         .contentType(MediaType.APPLICATION_JSON)

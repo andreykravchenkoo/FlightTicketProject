@@ -44,11 +44,11 @@ class SecurityConfigurationIT {
         String expectedEmail = "test@gmail.com";
         String expectedPassword = "test";
 
-        RegisterRequestDto requestDto = new RegisterRequestDto();
-        requestDto.setFirstname(expectedFirstname);
-        requestDto.setLastname(expectedLastname);
-        requestDto.setEmail(expectedEmail);
-        requestDto.setPassword(expectedPassword);
+        RegisterRequestDto expectedRequestDto = new RegisterRequestDto();
+        expectedRequestDto.setFirstname(expectedFirstname);
+        expectedRequestDto.setLastname(expectedLastname);
+        expectedRequestDto.setEmail(expectedEmail);
+        expectedRequestDto.setPassword(expectedPassword);
 
         User expectedUser = new User();
         expectedUser.setFirstname(expectedFirstname);
@@ -57,7 +57,7 @@ class SecurityConfigurationIT {
         expectedUser.setPassword(expectedPassword);
         expectedUser.setRole(UserRole.USER);
 
-        String requestBody = objectMapper.writeValueAsString(requestDto);
+        String requestBody = objectMapper.writeValueAsString(expectedRequestDto);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -76,16 +76,16 @@ class SecurityConfigurationIT {
         String expectedUserEmail = "admin@gmail.com";
         String expectedPassword = "admin";
 
-        AuthenticationRequestDto requestDto = new AuthenticationRequestDto();
-        requestDto.setEmail(expectedUserEmail);
-        requestDto.setPassword(expectedPassword);
+        AuthenticationRequestDto expectedRequestDto = new AuthenticationRequestDto();
+        expectedRequestDto.setEmail(expectedUserEmail);
+        expectedRequestDto.setPassword(expectedPassword);
 
         User expectedUser = new User();
         expectedUser.setEmail(expectedUserEmail);
         expectedUser.setPassword(expectedPassword);
         expectedUser.setRole(UserRole.ADMIN);
 
-        String requestBody = objectMapper.writeValueAsString(requestDto);
+        String requestBody = objectMapper.writeValueAsString(expectedRequestDto);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/authenticate")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -105,11 +105,11 @@ class SecurityConfigurationIT {
         String expectedPassword = "fail";
         String expectedErrorMessage = "User by email = " + expectedUserEmail + " not found";
 
-        AuthenticationRequestDto requestDto = new AuthenticationRequestDto();
-        requestDto.setEmail(expectedUserEmail);
-        requestDto.setPassword(expectedPassword);
+        AuthenticationRequestDto expectedRequestDto = new AuthenticationRequestDto();
+        expectedRequestDto.setEmail(expectedUserEmail);
+        expectedRequestDto.setPassword(expectedPassword);
 
-        String requestBody = objectMapper.writeValueAsString(requestDto);
+        String requestBody = objectMapper.writeValueAsString(expectedRequestDto);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/authenticate")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -4,10 +4,11 @@
 
 Application for booking tickets for real flights from API https://app.goflightlabs.com/dashboard
 The user can find flights by his filter, book a ticket and pay the payment.
-The application is currently under development, many features will be added and changed. The next innovation will be the addition of logging and security, as well as test coverage
+The application is currently under development, many features will be added and changed. The next innovation will be writing UI
 
 ## Features
 
+* Registration and authorization by JWT
 * Search for flights in the integrated API
 * Ticket booking
 * Execute payment
@@ -19,9 +20,8 @@ The application is currently under development, many features will be added and 
 * JDK 17
 * Spring Boot 2.7.7
 * Spring Data
-* Spring Security
-* Spring Mail
-* Database H2
+* Spring Security (JWT)
+* Database PostgreSQL for production and H2 for tests
 * Swagger UI
 * Lombok
 
