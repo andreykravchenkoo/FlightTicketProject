@@ -41,13 +41,13 @@ public class FlightDto {
     @NotBlank(message = "Carrier is required")
     private String carrier;
 
-    public FlightDto(String id, String origin, String destination, Date departure, Date arrival, double price, String carrier) {
-        this.id = id;
+    public FlightDto(String origin, String destination, Date departure, Date arrival, double price, FareClassStatus fareClass, String carrier) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;
         this.arrival = arrival;
         this.price = price;
+        this.fareClass = fareClass;
         this.carrier = carrier;
     }
 

@@ -67,7 +67,6 @@ public class PaymentController {
 
         Payment payment = paymentProcessorFacade.executePayment(paymentId, sum);
 
-        log.info("Payment executed successful with id = {}", payment.getId());
         return ResponseEntity.ok(payment.toDto());
     }
 }

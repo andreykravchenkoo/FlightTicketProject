@@ -4,7 +4,6 @@ import com.example.FlightTicketProject.deserializer.GoflightlabsResponseCustomDe
 import com.example.FlightTicketProject.dto.AirportInfoDto;
 import com.example.FlightTicketProject.dto.FlightDto;
 import com.example.FlightTicketProject.entity.FareClassStatus;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -30,7 +28,7 @@ public class GoflightlabsClientService {
     @Value("${url.access-key}")
     private String accessKey;
 
-    public Set<FlightDto> findFlightsByFilter(String adults, String origin, String destination, String departureDate, String fareClass) throws JsonProcessingException {
+    public Set<FlightDto> findFlightsByFilter(String adults, String origin, String destination, String departureDate, String fareClass) {
         log.info("Finding flights in Goflightlabs by filter: adults = {}, origin = {}, destination = {}, departureDate = {}, fareClass = {}", adults, origin, destination, departureDate, fareClass);
 
         String path = "/search-best-flights?access_key={accessKey}&adults={adults}&origin={origin}&destination={destination}&departureDate={departureDate}&cabinClass={fareClass}";
@@ -48,13 +46,10 @@ public class GoflightlabsClientService {
 
         String json = restTemplate.getForObject(url, String.class);
 
-        log.info("Flights in Goflightlabs found successfully");
-        return customDeserializer.flightResponseDeserialize(json).stream()
-                .peek(status -> status.setFareClass(FareClassStatus.valueOf(fareClass.toUpperCase())))
-                .collect(Collectors.toSet());
+        return customDeserializer.flightResponseDeserialize(json, FareClassStatus.valueOf(fareClass.toUpperCase()));
     }
 
-    public List<AirportInfoDto> findAirportByCity(String city) throws JsonProcessingException {
+    public List<AirportInfoDto> findAirportByCity(String city) {
         log.info("Finding airport data in Goflightlabs by city = {}", city);
 
         String path = "/get-airport-data?access_key={accessKey}&query={query}";
@@ -68,7 +63,6 @@ public class GoflightlabsClientService {
 
         String json = restTemplate.getForObject(url, String.class);
 
-        log.info("Airport data found successfully");
         return customDeserializer.airportResponseDeserialize(json);
     }
 }

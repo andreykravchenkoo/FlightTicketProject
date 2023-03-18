@@ -39,20 +39,19 @@ public class PaymentProcessorFacade {
         payment.setDate(new Date());
         payment.setStatus(PaymentStatus.DONE);
 
-        log.info("Payment executed successful with this data: id = {}, status = {}", payment.getId(), payment.getStatus());
         return paymentService.save(payment);
     }
 
     private void checkExecution(PaymentStatus paymentStatus) {
         if (!paymentStatus.equals(PaymentStatus.NEW)) {
-            log.warn("Payment status is not 'New', throwing exception. Payment status = {}", paymentStatus);
+            log.error("Payment status is not 'New', throwing exception. Payment status = {}", paymentStatus);
             throw new PaymentAlreadyExecuteException("Payment already execute or is in the archive");
         }
     }
 
     private void checkSum(double sum, double priceFlight) {
-        if (sum < priceFlight || sum > priceFlight) {
-            log.warn("Payment sum does not match the price of the flight. Sum = {}, priceFlight = {}", sum, priceFlight);
+        if (sum != priceFlight) {
+            log.error("Payment sum does not match the price of the flight. Sum = {}, priceFlight = {}", sum, priceFlight);
             throw new InvalidSumException("Invalid sum = " + sum + " because price of the flight = " + priceFlight);
         }
     }
@@ -60,7 +59,7 @@ public class PaymentProcessorFacade {
     private void checkOwner(String email) {
         String currentUserEmail = JwtAuthenticationFilter.getCurrentUserEmail();
         if (!email.equals(currentUserEmail)) {
-            log.warn("User not authorized to execute payment. Owner payment = {}, current user = {}", email, currentUserEmail);
+            log.error("User not authorized to execute payment. Owner payment = {}, current user = {}", email, currentUserEmail);
             throw new UnauthorizedAccessException("User not authorized to execute payment");
         }
     }

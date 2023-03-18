@@ -1,11 +1,10 @@
 package com.example.FlightTicketProject.security.service.impl;
 
-import com.example.FlightTicketProject.exception.UserNotFoundException;
+import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +14,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User by email = " + email + " not found"));
+    public UserDetails loadUserByUsername(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFound("User by email = " + email + " not found"));
     }
 }

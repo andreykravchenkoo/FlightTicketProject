@@ -1,7 +1,7 @@
 package com.example.FlightTicketProject.service.impl;
 
 import com.example.FlightTicketProject.entity.Flight;
-import com.example.FlightTicketProject.exception.FlightNotFoundException;
+import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.repository.FlightRepository;
 import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.FlightService;
@@ -24,7 +24,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight findById(String flightId) {
-        return flightRepository.findById(flightId).orElseThrow(() -> new FlightNotFoundException("Flight with ID = " + flightId + " will not be found"));
+        return flightRepository.findById(flightId).orElseThrow(() -> new ResourceNotFound("Flight with ID = " + flightId + " will not be found"));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public void saveAll(Set<Flight> flights) {
+    public void cacheAll(Set<Flight> flights) {
         flightRepository.saveAll(flights);
     }
 

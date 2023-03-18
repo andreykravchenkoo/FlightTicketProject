@@ -6,9 +6,11 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.RestClientException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Date;
@@ -21,12 +23,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleException(Exception exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
-                HttpStatus.BAD_REQUEST.value(),
-                HttpStatus.BAD_REQUEST,
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
                 exception.getMessage()
         );
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -71,44 +73,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(FlightNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleFlightNotFoundException(FlightNotFoundException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                new Date(),
-                HttpStatus.NOT_FOUND.value(),
-                HttpStatus.NOT_FOUND,
-                exception.getMessage()
-        );
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(PaymentNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handlePaymentNotFoundException(PaymentNotFoundException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                new Date(),
-                HttpStatus.NOT_FOUND.value(),
-                HttpStatus.NOT_FOUND,
-                exception.getMessage()
-        );
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(TicketNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleTicketNotFoundException(TicketNotFoundException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                new Date(),
-                HttpStatus.NOT_FOUND.value(),
-                HttpStatus.NOT_FOUND,
-                exception.getMessage()
-        );
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exception) {
+    @ExceptionHandler(ResourceNotFound.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFound exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
                 HttpStatus.NOT_FOUND.value(),
@@ -132,7 +98,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException() {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -153,5 +119,41 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ExternalApiParseException.class)
+    public ResponseEntity<ErrorResponse> handleExternalApiParseException(ExternalApiParseException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                new Date(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                exception.getMessage()
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(RestClientException.class)
+    public ResponseEntity<ErrorResponse> handleRestClientException(RestClientException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                new Date(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                exception.getMessage()
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    public ResponseEntity<ErrorResponse> handleInternalAuthenticationServiceException(InternalAuthenticationServiceException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                new Date(),
+                HttpStatus.UNAUTHORIZED.value(),
+                HttpStatus.UNAUTHORIZED,
+                exception.getMessage()
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 }

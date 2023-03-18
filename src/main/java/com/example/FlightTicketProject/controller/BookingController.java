@@ -31,7 +31,6 @@ public class BookingController {
 
         Ticket ticket = bookingTicketFacade.bookTicket(bookTicketDto.getFlightId(), bookTicketDto.getSeat());
 
-        log.info("Ticket booking successful with id = {}", ticket.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(ticket.toDtoWithPaymentId(ticket.getPayment().getId()));
     }
 }

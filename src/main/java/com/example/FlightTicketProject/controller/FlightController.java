@@ -4,7 +4,6 @@ import com.example.FlightTicketProject.dto.FlightDto;
 import com.example.FlightTicketProject.entity.Flight;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.rest.GoflightlabsClientService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,16 +43,15 @@ public class FlightController {
                                                              @RequestParam(value = "origin") @NotBlank String origin,
                                                              @RequestParam(value = "destination") @NotBlank String destination,
                                                              @RequestParam(value = "departureDate") @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$") String departureDate,
-                                                             @RequestParam(value = "fareClass") @NotBlank String fareClass) throws JsonProcessingException {
+                                                             @RequestParam(value = "fareClass") @NotBlank String fareClass) {
         log.info("Received request to get flights by filter: adults = {}, origin = {}, destination = {}, departureDate = {}, fareClass = {}", adults, origin, destination, departureDate, fareClass);
 
         Set<FlightDto> flightsDto = goflightlabsClientService.findFlightsByFilter(adults, origin, destination, departureDate, fareClass);
 
-        flightService.saveAll(flightsDto.stream()
+        flightService.cacheAll(flightsDto.stream()
                 .map(FlightDto::toEntity)
                 .collect(Collectors.toSet()));
 
-        log.info("Request get flights by filter completed successfully");
         return ResponseEntity.ok(flightsDto);
     }
 

@@ -49,7 +49,6 @@ public class BookingTicketFacade {
         flightService.save(flight);
         userService.save(user);
 
-        log.info("Ticket booking successful with this data: ticketId = {}, paymentId = {}", ticket.getId(), ticket.getPayment().getId());
         return ticket;
     }
 }

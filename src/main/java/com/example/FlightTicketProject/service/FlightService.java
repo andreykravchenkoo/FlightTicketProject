@@ -13,7 +13,7 @@ public interface FlightService {
 
     Flight save(Flight flight);
 
-    void saveAll(Set<Flight> flights);
+    void cacheAll(Set<Flight> flights);
 
     void update(Flight flight);
 

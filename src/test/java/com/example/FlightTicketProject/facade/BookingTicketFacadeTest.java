@@ -1,7 +1,7 @@
 package com.example.FlightTicketProject.facade;
 
 import com.example.FlightTicketProject.entity.*;
-import com.example.FlightTicketProject.exception.FlightNotFoundException;
+import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
 import com.example.FlightTicketProject.service.TicketService;
@@ -86,8 +86,8 @@ class BookingTicketFacadeTest {
         String expectedSeat = "F10";
         String expectedErrorMessage = "Flight with ID = " + expectedFlightId + " will not be found";
 
-        when(flightService.findById(expectedFlightId)).thenThrow(new FlightNotFoundException(expectedErrorMessage));
-        FlightNotFoundException exception = assertThrows(FlightNotFoundException.class, () -> bookingTicketFacade.bookTicket(expectedFlightId, expectedSeat));
+        when(flightService.findById(expectedFlightId)).thenThrow(new ResourceNotFound(expectedErrorMessage));
+        ResourceNotFound exception = assertThrows(ResourceNotFound.class, () -> bookingTicketFacade.bookTicket(expectedFlightId, expectedSeat));
 
         assertEquals(expectedErrorMessage, exception.getLocalizedMessage());
     }

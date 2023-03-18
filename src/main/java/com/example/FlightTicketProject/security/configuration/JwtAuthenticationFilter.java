@@ -33,6 +33,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final ObjectMapper objectMapper;
 
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+
+    private static final String AUTHORIZATION_HEADER_PREFIX = "Bearer ";
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -41,20 +45,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.debug("Processing request with JWT authentication filter");
 
         try {
-            final String authHeader = request.getHeader("Authorization");
+            final String authHeader = request.getHeader(AUTHORIZATION_HEADER);
             final String jwt;
-            final String userEmail;
+            final String username;
 
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            if (authHeader == null || !authHeader.startsWith(AUTHORIZATION_HEADER_PREFIX)) {
                 filterChain.doFilter(request, response);
                 return;
             }
 
             jwt = authHeader.substring(7);
-            userEmail = jwtTokenService.extractUsername(jwt);
+            username = jwtTokenService.extractUsername(jwt);
 
-            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
                 if (jwtTokenService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
@@ -74,7 +78,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             log.debug("Processing request with JWT authentication filter succeeded");
 
         } catch (RuntimeException exception) {
-            log.warn("JWT failed authentication, thrown exception");
+            log.error("JWT failed authentication, thrown exception");
 
             ErrorResponse errorResponse = new ErrorResponse(
                     new Date(),

@@ -30,7 +30,6 @@ public class AuthenticationController {
 
         AuthenticationResponseDto responseDto = authenticationService.register(requestDto);
 
-        log.info("Request completed successfully. New user registered");
         return ResponseEntity.ok(responseDto);
     }
 
@@ -40,7 +39,6 @@ public class AuthenticationController {
 
         AuthenticationResponseDto responseDto = authenticationService.authenticate(requestDto);
 
-        log.info("Request completed successfully. User authenticated");
         return ResponseEntity.ok(responseDto);
     }
 }

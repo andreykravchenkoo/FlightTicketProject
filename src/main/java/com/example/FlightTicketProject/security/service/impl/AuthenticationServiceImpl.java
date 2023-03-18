@@ -5,7 +5,7 @@ import com.example.FlightTicketProject.dto.response.AuthenticationResponseDto;
 import com.example.FlightTicketProject.dto.request.RegisterRequestDto;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.entity.UserRole;
-import com.example.FlightTicketProject.exception.UserNotFoundException;
+import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.repository.UserRepository;
 import com.example.FlightTicketProject.security.service.token.JwtTokenService;
 import com.example.FlightTicketProject.security.service.AuthenticationService;
@@ -45,7 +45,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         String jwtToken = jwtTokenService.generateToken(user);
 
-        log.info("Registration of a new user with role 'User' successful");
         return new AuthenticationResponseDto(jwtToken);
     }
 
@@ -55,11 +54,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UserNotFoundException("User by email = " + request.getEmail() + " not found"));
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ResourceNotFound("User by email = " + request.getEmail() + " not found"));
 
         String jwtToken = jwtTokenService.generateToken(user);
 
-        log.info("User authenticated successfully");
         return new AuthenticationResponseDto(jwtToken);
     }
 }

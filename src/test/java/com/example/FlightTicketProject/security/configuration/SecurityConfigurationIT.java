@@ -114,7 +114,7 @@ class SecurityConfigurationIT {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/authenticate")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isUnauthorized())
                 .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
