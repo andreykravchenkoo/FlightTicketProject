@@ -4,7 +4,7 @@
 
 Application for booking tickets for real flights from API https://app.goflightlabs.com/dashboard
 The user can find flights by his filter, book a ticket and pay the payment.
-The application is currently under development, many features will be added and changed. The next innovation will be writing UI
+The application is currently under development, many features will be added and changed.
 
 ## Features
 
