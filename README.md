@@ -32,5 +32,5 @@ The user can find flights by his filter, book a ticket and pay the payment.
 
 1. Clone the project locally on your machine
 2. Get API key here: https://app.goflightlabs.com/dashboard
-3. Paste the resulting key into application.properties
+3. Paste the resulting key into application.yml
 4. Launch by URL: http://localhost:8080/air-ticket-booking/swagger-ui/index.html#
