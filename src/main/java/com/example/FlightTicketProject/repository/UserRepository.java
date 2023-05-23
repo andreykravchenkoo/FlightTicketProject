@@ -1,6 +1,7 @@
 package com.example.FlightTicketProject.repository;
 
 import com.example.FlightTicketProject.entity.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

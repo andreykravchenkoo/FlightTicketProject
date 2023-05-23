@@ -1,15 +1,16 @@
 package com.example.FlightTicketProject.dto;
 
 import com.example.FlightTicketProject.entity.FareClassStatus;
-
 import com.example.FlightTicketProject.entity.Flight;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
 import java.util.Date;
+
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -41,7 +42,14 @@ public class FlightDto {
     @NotBlank(message = "Carrier is required")
     private String carrier;
 
-    public FlightDto(String origin, String destination, Date departure, Date arrival, double price, FareClassStatus fareClass, String carrier) {
+    public FlightDto(
+            String origin,
+            String destination,
+            Date departure,
+            Date arrival,
+            double price,
+            FareClassStatus fareClass,
+            String carrier) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;

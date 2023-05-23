@@ -1,5 +1,9 @@
 package com.example.FlightTicketProject.security.configuration;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.example.FlightTicketProject.dto.request.AuthenticationRequestDto;
 import com.example.FlightTicketProject.dto.request.RegisterRequestDto;
 import com.example.FlightTicketProject.dto.response.AuthenticationResponseDto;
@@ -9,6 +13,7 @@ import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.security.service.AuthenticationService;
 import com.example.FlightTicketProject.security.service.token.JwtTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,33 +27,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(profiles = "test")
 class SecurityConfigurationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private ObjectMapper objectMapper;
 
-    @MockBean
-    private JwtTokenService jwtTokenService;
+    @MockBean private JwtTokenService jwtTokenService;
 
-    @MockBean
-    private UserDetailsService userDetailsService;
+    @MockBean private UserDetailsService userDetailsService;
 
-    @MockBean
-    private AuthenticationService authenticationService;
+    @MockBean private AuthenticationService authenticationService;
 
     // Controversial moment, without it, I can't check the Authenticate test yet
-    @MockBean
-    private AuthenticationManager authenticationManager;
+    @MockBean private AuthenticationManager authenticationManager;
 
     private static final String EXPECTED_VALID_TOKEN = "validToken";
 
@@ -69,9 +64,10 @@ class SecurityConfigurationTest {
 
         String requestBody = objectMapper.writeValueAsString(requestDto);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/authentication/register")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestBody))
                 .andExpect(status().isOk());
     }
 
@@ -93,11 +89,13 @@ class SecurityConfigurationTest {
 
         String requestBody = objectMapper.writeValueAsString(expectedRequestDto);
 
-        when(authenticationService.authenticate(expectedRequestDto)).thenReturn(expectedResponseDto);
+        when(authenticationService.authenticate(expectedRequestDto))
+                .thenReturn(expectedResponseDto);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/authenticate")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/authentication/authenticate")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestBody))
                 .andExpect(status().isOk());
     }
 
@@ -116,13 +114,18 @@ class SecurityConfigurationTest {
 
         String requestBody = objectMapper.writeValueAsString(expectedRequestDto);
 
-        when(authenticationService.authenticate(expectedRequestDto)).thenThrow(new ResourceNotFound("User by email = " + expectedRequestDto.getEmail() + " not found"));
+        when(authenticationService.authenticate(expectedRequestDto))
+                .thenThrow(
+                        new ResourceNotFound(
+                                "User by email = " + expectedRequestDto.getEmail() + " not found"));
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/authentication/authenticate")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isNotFound())
-                .andReturn();
+        MvcResult result =
+                mockMvc.perform(
+                                MockMvcRequestBuilders.post("/api/authentication/authenticate")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(requestBody))
+                        .andExpect(status().isNotFound())
+                        .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
 
@@ -141,8 +144,9 @@ class SecurityConfigurationTest {
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
         when(jwtTokenService.isTokenValid(EXPECTED_VALID_TOKEN, expectedUser)).thenReturn(true);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/flights/user")
-                        .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/flights/user")
+                                .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
                 .andExpect(status().isOk());
     }
 
@@ -158,8 +162,9 @@ class SecurityConfigurationTest {
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
         when(jwtTokenService.isTokenValid(EXPECTED_VALID_TOKEN, expectedUser)).thenReturn(true);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/flights")
+                                .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
                 .andExpect(status().isForbidden());
     }
 
@@ -175,21 +180,28 @@ class SecurityConfigurationTest {
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
         when(jwtTokenService.isTokenValid(EXPECTED_VALID_TOKEN, expectedUser)).thenReturn(true);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/flights")
+                                .header("Authorization", "Bearer " + EXPECTED_VALID_TOKEN))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testCloseAccessToResourcesWithInvalidToken() throws Exception {
-        String expectedErrorMessage = "JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted";
+        String expectedErrorMessage =
+                "JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted";
 
-        when(jwtTokenService.extractUsername(EXPECTED_INVALID_TOKEN)).thenThrow(new RuntimeException(expectedErrorMessage));
+        when(jwtTokenService.extractUsername(EXPECTED_INVALID_TOKEN))
+                .thenThrow(new RuntimeException(expectedErrorMessage));
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + EXPECTED_INVALID_TOKEN))
-                .andExpect(status().isUnauthorized())
-                .andReturn();
+        MvcResult result =
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/api/flights")
+                                        .header(
+                                                "Authorization",
+                                                "Bearer " + EXPECTED_INVALID_TOKEN))
+                        .andExpect(status().isUnauthorized())
+                        .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
 
@@ -199,7 +211,8 @@ class SecurityConfigurationTest {
     @Test
     void testCloseAccessToResourcesWithExpiredToken() throws Exception {
         String expectedUserEmail = "test@gmail.com";
-        String expectedErrorMessage = "JWT expired at 2023-03-08T19:41:38Z. Current time: 2023-03-08T19:42:04Z, a difference of 26975 milliseconds.  Allowed clock skew: 0 milliseconds.";
+        String expectedErrorMessage =
+                "JWT expired at 2023-03-08T19:41:38Z. Current time: 2023-03-08T19:42:04Z, a difference of 26975 milliseconds.  Allowed clock skew: 0 milliseconds.";
 
         User expectedUser = new User();
         expectedUser.setEmail(expectedUserEmail);
@@ -207,12 +220,17 @@ class SecurityConfigurationTest {
 
         when(jwtTokenService.extractUsername(EXPECTED_INVALID_TOKEN)).thenReturn(expectedUserEmail);
         when(userDetailsService.loadUserByUsername(expectedUserEmail)).thenReturn(expectedUser);
-        when(jwtTokenService.isTokenValid(EXPECTED_INVALID_TOKEN, expectedUser)).thenThrow(new RuntimeException(expectedErrorMessage));
+        when(jwtTokenService.isTokenValid(EXPECTED_INVALID_TOKEN, expectedUser))
+                .thenThrow(new RuntimeException(expectedErrorMessage));
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/flights")
-                        .header("Authorization", "Bearer " + EXPECTED_INVALID_TOKEN))
-                .andExpect(status().isUnauthorized())
-                .andReturn();
+        MvcResult result =
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/api/flights")
+                                        .header(
+                                                "Authorization",
+                                                "Bearer " + EXPECTED_INVALID_TOKEN))
+                        .andExpect(status().isUnauthorized())
+                        .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
 

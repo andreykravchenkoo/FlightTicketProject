@@ -5,7 +5,9 @@ import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.repository.UserRepository;
 import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.UserService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound("User with ID = " + userId + " not found"));
+        return userRepository
+                .findById(userId)
+                .orElseThrow(() -> new ResourceNotFound("User with ID = " + userId + " not found"));
     }
 
     @Override
@@ -37,6 +41,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail() {
-        return userRepository.findByEmail(JwtAuthenticationFilter.getCurrentUserEmail()).orElseThrow(() -> new ResourceNotFound("User not found"));
+        return userRepository
+                .findByEmail(JwtAuthenticationFilter.getCurrentUserEmail())
+                .orElseThrow(() -> new ResourceNotFound("User not found"));
     }
 }

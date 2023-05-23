@@ -1,13 +1,15 @@
 package com.example.FlightTicketProject.entity;
 
 import com.example.FlightTicketProject.dto.PaymentDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.*;
 
 @Entity
 @Data

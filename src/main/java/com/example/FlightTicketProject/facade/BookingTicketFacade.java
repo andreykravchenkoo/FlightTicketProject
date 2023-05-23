@@ -5,8 +5,10 @@ import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
 import com.example.FlightTicketProject.service.TicketService;
 import com.example.FlightTicketProject.service.UserService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +29,10 @@ public class BookingTicketFacade {
 
     @Transactional
     public Ticket bookTicket(String flightId, String seat) {
-        log.info("Booking ticket for flight with this data: flightId = {}, seat = {}", flightId, seat);
+        log.info(
+                "Booking ticket for flight with this data: flightId = {}, seat = {}",
+                flightId,
+                seat);
 
         Flight flight = flightService.findById(flightId);
         User user = userService.findByEmail();

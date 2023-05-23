@@ -5,7 +5,9 @@ import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.repository.FlightRepository;
 import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.FlightService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,12 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight findById(String flightId) {
-        return flightRepository.findById(flightId).orElseThrow(() -> new ResourceNotFound("Flight with ID = " + flightId + " will not be found"));
+        return flightRepository
+                .findById(flightId)
+                .orElseThrow(
+                        () ->
+                                new ResourceNotFound(
+                                        "Flight with ID = " + flightId + " will not be found"));
     }
 
     @Override

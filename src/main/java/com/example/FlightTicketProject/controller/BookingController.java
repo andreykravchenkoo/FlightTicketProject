@@ -4,9 +4,12 @@ import com.example.FlightTicketProject.dto.BookTicketDto;
 import com.example.FlightTicketProject.dto.TicketInfoWithPaymentIdDto;
 import com.example.FlightTicketProject.entity.Ticket;
 import com.example.FlightTicketProject.facade.BookingTicketFacade;
+
 import io.swagger.annotations.Api;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +29,17 @@ public class BookingController {
     private final BookingTicketFacade bookingTicketFacade;
 
     @PostMapping
-    public ResponseEntity<TicketInfoWithPaymentIdDto> bookTicket(@RequestBody @Valid BookTicketDto bookTicketDto) {
-        log.info("Received request to book a ticket for flight with id = {}", bookTicketDto.getFlightId());
+    public ResponseEntity<TicketInfoWithPaymentIdDto> bookTicket(
+            @RequestBody @Valid BookTicketDto bookTicketDto) {
+        log.info(
+                "Received request to book a ticket for flight with id = {}",
+                bookTicketDto.getFlightId());
 
-        Ticket ticket = bookingTicketFacade.bookTicket(bookTicketDto.getFlightId(), bookTicketDto.getSeat());
+        Ticket ticket =
+                bookingTicketFacade.bookTicket(
+                        bookTicketDto.getFlightId(), bookTicketDto.getSeat());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ticket.toDtoWithPaymentId(ticket.getPayment().getId()));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ticket.toDtoWithPaymentId(ticket.getPayment().getId()));
     }
 }

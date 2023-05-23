@@ -5,7 +5,9 @@ import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.repository.PaymentRepository;
 import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.PaymentService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +25,12 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment findById(Long paymentId) {
-        return paymentRepository.findById(paymentId).orElseThrow(() -> new ResourceNotFound("Payment with ID = " + paymentId + " will not be found"));
+        return paymentRepository
+                .findById(paymentId)
+                .orElseThrow(
+                        () ->
+                                new ResourceNotFound(
+                                        "Payment with ID = " + paymentId + " will not be found"));
     }
 
     @Override

@@ -6,8 +6,10 @@ import com.example.FlightTicketProject.entity.FareClassStatus;
 import com.example.FlightTicketProject.exception.ExternalApiParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
@@ -32,23 +34,62 @@ public class GoflightlabsResponseCustomDeserializer {
                     .flatMap(bucketsNode -> StreamSupport.stream(bucketsNode.spliterator(), false))
                     .map(bucketNode -> bucketNode.get("items"))
                     .flatMap(itemsNode -> StreamSupport.stream(itemsNode.spliterator(), false))
-                    .map(itemNode -> {
-                        String id = itemNode.get("id").asText();
-                        double price = itemNode.get("price").get("raw").asDouble();
-                        String origin = itemNode.get("legs").get(0).get("origin").get("name").asText();
-                        String destination = itemNode.get("legs").get(0).get("destination").get("name").asText();
-                        Date departure;
-                        Date arrival;
-                        try {
-                            departure = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(itemNode.get("legs").get(0).get("departure").asText());
-                            arrival = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(itemNode.get("legs").get(0).get("arrival").asText());
-                        } catch (ParseException e) {
-                            log.error("Error parsing date format a flights response from external API, check response");
-                            throw new ExternalApiParseException(e.getMessage());
-                        }
-                        String carrier = itemNode.get("legs").get(0).get("carriers").get("marketing").get(0).get("name").asText();
-                        return new FlightDto(id, origin, destination, departure, arrival, price, fareClass, carrier);
-                    })
+                    .map(
+                            itemNode -> {
+                                String id = itemNode.get("id").asText();
+                                double price = itemNode.get("price").get("raw").asDouble();
+                                String origin =
+                                        itemNode.get("legs")
+                                                .get(0)
+                                                .get("origin")
+                                                .get("name")
+                                                .asText();
+                                String destination =
+                                        itemNode.get("legs")
+                                                .get(0)
+                                                .get("destination")
+                                                .get("name")
+                                                .asText();
+                                Date departure;
+                                Date arrival;
+                                try {
+                                    departure =
+                                            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                                                    .parse(
+                                                            itemNode.get("legs")
+                                                                    .get(0)
+                                                                    .get("departure")
+                                                                    .asText());
+                                    arrival =
+                                            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                                                    .parse(
+                                                            itemNode.get("legs")
+                                                                    .get(0)
+                                                                    .get("arrival")
+                                                                    .asText());
+                                } catch (ParseException e) {
+                                    log.error(
+                                            "Error parsing date format a flights response from external API, check response");
+                                    throw new ExternalApiParseException(e.getMessage());
+                                }
+                                String carrier =
+                                        itemNode.get("legs")
+                                                .get(0)
+                                                .get("carriers")
+                                                .get("marketing")
+                                                .get(0)
+                                                .get("name")
+                                                .asText();
+                                return new FlightDto(
+                                        id,
+                                        origin,
+                                        destination,
+                                        departure,
+                                        arrival,
+                                        price,
+                                        fareClass,
+                                        carrier);
+                            })
                     .collect(Collectors.toSet());
         } catch (JsonProcessingException e) {
             log.error("Error parsing flights response from external API, check response");
@@ -60,13 +101,25 @@ public class GoflightlabsResponseCustomDeserializer {
         log.info("Parsing airports response from external API");
         try {
             return Optional.ofNullable(objectMapper.readTree(json).get("data"))
-                    .map(data -> StreamSupport.stream(data.spliterator(), false)
-                            .map(airportNode -> new AirportInfoDto(
-                                    airportNode.get("iata_code").asText(),
-                                    airportNode.get("name").asText(),
-                                    airportNode.get("city").asText(),
-                                    airportNode.get("country").asText()))
-                            .collect(Collectors.toList()))
+                    .map(
+                            data ->
+                                    StreamSupport.stream(data.spliterator(), false)
+                                            .map(
+                                                    airportNode ->
+                                                            new AirportInfoDto(
+                                                                    airportNode
+                                                                            .get("iata_code")
+                                                                            .asText(),
+                                                                    airportNode
+                                                                            .get("name")
+                                                                            .asText(),
+                                                                    airportNode
+                                                                            .get("city")
+                                                                            .asText(),
+                                                                    airportNode
+                                                                            .get("country")
+                                                                            .asText()))
+                                            .collect(Collectors.toList()))
                     .orElse(Collections.emptyList());
         } catch (JsonProcessingException e) {
             log.error("Error parsing airports response from external API, check response");

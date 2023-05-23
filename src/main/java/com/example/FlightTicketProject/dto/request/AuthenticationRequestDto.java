@@ -10,7 +10,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class AuthenticationRequestDto {
 
-    @Email(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "Email not valid")
+    @Email(
+            regexp =
+                    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
+            message = "Email not valid")
     private String email;
 
     @NotBlank(message = "Password is required")

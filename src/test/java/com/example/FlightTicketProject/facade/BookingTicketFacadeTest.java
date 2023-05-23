@@ -1,11 +1,16 @@
 package com.example.FlightTicketProject.facade;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.example.FlightTicketProject.entity.*;
 import com.example.FlightTicketProject.exception.ResourceNotFound;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
 import com.example.FlightTicketProject.service.TicketService;
 import com.example.FlightTicketProject.service.UserService;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,28 +18,19 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles(profiles = "test")
 class BookingTicketFacadeTest {
 
-    @Mock
-    private FlightService flightService;
+    @Mock private FlightService flightService;
 
-    @Mock
-    private TicketService ticketService;
+    @Mock private TicketService ticketService;
 
-    @Mock
-    private PaymentService paymentService;
+    @Mock private PaymentService paymentService;
 
-    @Mock
-    private UserService userService;
+    @Mock private UserService userService;
 
-    @InjectMocks
-    private BookingTicketFacade bookingTicketFacade;
+    @InjectMocks private BookingTicketFacade bookingTicketFacade;
 
     @Test
     void testShouldSuccessfulyBookTicket() {
@@ -69,8 +65,7 @@ class BookingTicketFacadeTest {
                 () -> assertEquals(expectedPayment.getStatus(), ticket.getPayment().getStatus()),
                 () -> assertEquals(expectedUser, ticket.getUser()),
                 () -> assertEquals(expectedFlight, ticket.getFlight()),
-                () -> assertEquals(ticket, ticket.getPayment().getTicket())
-        );
+                () -> assertEquals(ticket, ticket.getPayment().getTicket()));
 
         verify(flightService).findById(expectedFlightId);
         verify(userService).findByEmail();
@@ -86,8 +81,12 @@ class BookingTicketFacadeTest {
         String expectedSeat = "F10";
         String expectedErrorMessage = "Flight with ID = " + expectedFlightId + " will not be found";
 
-        when(flightService.findById(expectedFlightId)).thenThrow(new ResourceNotFound(expectedErrorMessage));
-        ResourceNotFound exception = assertThrows(ResourceNotFound.class, () -> bookingTicketFacade.bookTicket(expectedFlightId, expectedSeat));
+        when(flightService.findById(expectedFlightId))
+                .thenThrow(new ResourceNotFound(expectedErrorMessage));
+        ResourceNotFound exception =
+                assertThrows(
+                        ResourceNotFound.class,
+                        () -> bookingTicketFacade.bookTicket(expectedFlightId, expectedSeat));
 
         assertEquals(expectedErrorMessage, exception.getLocalizedMessage());
     }

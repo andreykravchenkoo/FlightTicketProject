@@ -1,6 +1,7 @@
 package com.example.FlightTicketProject.security.configuration;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,13 +28,27 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf()
+        http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/authentication/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui/**", "/webjars/**")
+                .antMatchers(
+                        "/api/authentication/**",
+                        "/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui/**",
+                        "/webjars/**")
                 .permitAll()
-                .antMatchers("/api/airports/**", "/api/booking/**", "/api/flights/search", "/api/flights/user","/api/payments/execute", "/api/payments/user", "/api/tickets/user", "/api/users/info")
+                .antMatchers(
+                        "/api/airports/**",
+                        "/api/booking/**",
+                        "/api/flights/search",
+                        "/api/flights/user",
+                        "/api/payments/execute",
+                        "/api/payments/user",
+                        "/api/tickets/user",
+                        "/api/users/info")
                 .hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/api/**")
                 .hasAuthority("ADMIN")
@@ -58,7 +73,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
+            throws Exception {
         return configuration.getAuthenticationManager();
     }
 

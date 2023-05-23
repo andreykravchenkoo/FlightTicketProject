@@ -1,15 +1,17 @@
 package com.example.FlightTicketProject.entity;
 
 import com.example.FlightTicketProject.dto.FlightDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -19,8 +21,7 @@ import java.util.List;
 @Table(name = "flights")
 public class Flight {
 
-    @Id
-    private String id;
+    @Id private String id;
 
     @Column(name = "origin")
     private String origin;
@@ -47,7 +48,14 @@ public class Flight {
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
-    public Flight(String origin, String destination, Date departure, Date arrival, double price, FareClassStatus fareClass, String carrier) {
+    public Flight(
+            String origin,
+            String destination,
+            Date departure,
+            Date arrival,
+            double price,
+            FareClassStatus fareClass,
+            String carrier) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;

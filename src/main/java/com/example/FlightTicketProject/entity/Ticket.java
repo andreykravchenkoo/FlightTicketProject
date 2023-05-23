@@ -2,6 +2,7 @@ package com.example.FlightTicketProject.entity;
 
 import com.example.FlightTicketProject.dto.TicketDto;
 import com.example.FlightTicketProject.dto.TicketInfoWithPaymentIdDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,11 +46,7 @@ public class Ticket {
     }
 
     public TicketDto toDto() {
-        return TicketDto.builder()
-                .id(this.id)
-                .owner(this.owner)
-                .seat(this.seat)
-                .build();
+        return TicketDto.builder().id(this.id).owner(this.owner).seat(this.seat).build();
     }
 
     public TicketInfoWithPaymentIdDto toDtoWithPaymentId(long paymentId) {

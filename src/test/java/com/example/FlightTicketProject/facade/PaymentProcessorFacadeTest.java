@@ -1,5 +1,8 @@
 package com.example.FlightTicketProject.facade;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
 import com.example.FlightTicketProject.entity.Payment;
 import com.example.FlightTicketProject.entity.PaymentStatus;
 import com.example.FlightTicketProject.entity.Ticket;
@@ -9,6 +12,7 @@ import com.example.FlightTicketProject.exception.PaymentAlreadyExecuteException;
 import com.example.FlightTicketProject.exception.UnauthorizedAccessException;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,24 +25,17 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles(profiles = "test")
 class PaymentProcessorFacadeTest {
 
-    @Mock
-    private FlightService flightService;
+    @Mock private FlightService flightService;
 
-    @Mock
-    private PaymentService paymentService;
+    @Mock private PaymentService paymentService;
 
-    @Mock
-    private Authentication authentication;
+    @Mock private Authentication authentication;
 
-    @InjectMocks
-    private PaymentProcessorFacade paymentProcessorFacade;
+    @InjectMocks private PaymentProcessorFacade paymentProcessorFacade;
 
     @BeforeEach
     void setUp() {
@@ -65,7 +62,8 @@ class PaymentProcessorFacadeTest {
         expectedPayment.setTicket(expectedTicket);
 
         when(paymentService.findById(expectedPaymentId)).thenReturn(expectedPayment);
-        when(flightService.findPriceFlightByPaymentId(expectedPaymentId)).thenReturn(expectedFlightPrice);
+        when(flightService.findPriceFlightByPaymentId(expectedPaymentId))
+                .thenReturn(expectedFlightPrice);
         when(authentication.getName()).thenReturn(expectedUser.getEmail());
         when(paymentService.save(expectedPayment)).thenReturn(expectedPayment);
 
@@ -74,9 +72,9 @@ class PaymentProcessorFacadeTest {
         assertAll(
                 () -> assertEquals(PaymentStatus.DONE, payment.getStatus()),
                 () -> assertEquals(expectedSum, payment.getSum()),
-                () -> assertEquals(expectedUser.getEmail(), payment.getTicket().getUser().getEmail())
-
-        );
+                () ->
+                        assertEquals(
+                                expectedUser.getEmail(), payment.getTicket().getUser().getEmail()));
     }
 
     @Test
@@ -99,9 +97,15 @@ class PaymentProcessorFacadeTest {
         expectedPayment.setTicket(expectedTicket);
 
         when(paymentService.findById(expectedPaymentId)).thenReturn(expectedPayment);
-        when(authentication.getName()).thenThrow(new UnauthorizedAccessException(expectedErrorMessage));
+        when(authentication.getName())
+                .thenThrow(new UnauthorizedAccessException(expectedErrorMessage));
 
-        UnauthorizedAccessException exception = assertThrows(UnauthorizedAccessException.class, () -> paymentProcessorFacade.executePayment(expectedPaymentId, expectedSum));
+        UnauthorizedAccessException exception =
+                assertThrows(
+                        UnauthorizedAccessException.class,
+                        () ->
+                                paymentProcessorFacade.executePayment(
+                                        expectedPaymentId, expectedSum));
 
         assertEquals(expectedErrorMessage, exception.getLocalizedMessage());
     }
@@ -128,7 +132,12 @@ class PaymentProcessorFacadeTest {
         when(paymentService.findById(expectedPaymentId)).thenReturn(expectedPayment);
         when(authentication.getName()).thenReturn(expectedUser.getEmail());
 
-        PaymentAlreadyExecuteException exception = assertThrows(PaymentAlreadyExecuteException.class, () -> paymentProcessorFacade.executePayment(expectedPaymentId, expectedSum));
+        PaymentAlreadyExecuteException exception =
+                assertThrows(
+                        PaymentAlreadyExecuteException.class,
+                        () ->
+                                paymentProcessorFacade.executePayment(
+                                        expectedPaymentId, expectedSum));
 
         assertEquals(expectedErrorMessage, exception.getLocalizedMessage());
     }
@@ -138,7 +147,11 @@ class PaymentProcessorFacadeTest {
         long expectedPaymentId = 1L;
         double expectedSum = 99;
         double expectedFlightPrice = 100;
-        String expectedErrorMessage = "Invalid sum = " + expectedSum + " because price of the flight = " + expectedFlightPrice;
+        String expectedErrorMessage =
+                "Invalid sum = "
+                        + expectedSum
+                        + " because price of the flight = "
+                        + expectedFlightPrice;
 
         User expectedUser = new User();
         expectedUser.setEmail("email@gmail.com");
@@ -155,9 +168,15 @@ class PaymentProcessorFacadeTest {
 
         when(paymentService.findById(expectedPaymentId)).thenReturn(expectedPayment);
         when(authentication.getName()).thenReturn(expectedUser.getEmail());
-        when(flightService.findPriceFlightByPaymentId(expectedPaymentId)).thenReturn(expectedFlightPrice);
+        when(flightService.findPriceFlightByPaymentId(expectedPaymentId))
+                .thenReturn(expectedFlightPrice);
 
-        InvalidSumException exception = assertThrows(InvalidSumException.class, () -> paymentProcessorFacade.executePayment(expectedPaymentId, expectedSum));
+        InvalidSumException exception =
+                assertThrows(
+                        InvalidSumException.class,
+                        () ->
+                                paymentProcessorFacade.executePayment(
+                                        expectedPaymentId, expectedSum));
 
         assertEquals(expectedErrorMessage, exception.getLocalizedMessage());
     }

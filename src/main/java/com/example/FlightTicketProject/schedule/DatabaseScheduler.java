@@ -1,7 +1,9 @@
 package com.example.FlightTicketProject.schedule;
 
 import com.example.FlightTicketProject.repository.FlightRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

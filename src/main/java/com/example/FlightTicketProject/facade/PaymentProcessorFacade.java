@@ -8,8 +8,10 @@ import com.example.FlightTicketProject.exception.UnauthorizedAccessException;
 import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -44,22 +46,32 @@ public class PaymentProcessorFacade {
 
     private void checkExecution(PaymentStatus paymentStatus) {
         if (!paymentStatus.equals(PaymentStatus.NEW)) {
-            log.error("Payment status is not 'New', throwing exception. Payment status = {}", paymentStatus);
-            throw new PaymentAlreadyExecuteException("Payment already execute or is in the archive");
+            log.error(
+                    "Payment status is not 'New', throwing exception. Payment status = {}",
+                    paymentStatus);
+            throw new PaymentAlreadyExecuteException(
+                    "Payment already execute or is in the archive");
         }
     }
 
     private void checkSum(double sum, double priceFlight) {
         if (sum != priceFlight) {
-            log.error("Payment sum does not match the price of the flight. Sum = {}, priceFlight = {}", sum, priceFlight);
-            throw new InvalidSumException("Invalid sum = " + sum + " because price of the flight = " + priceFlight);
+            log.error(
+                    "Payment sum does not match the price of the flight. Sum = {}, priceFlight = {}",
+                    sum,
+                    priceFlight);
+            throw new InvalidSumException(
+                    "Invalid sum = " + sum + " because price of the flight = " + priceFlight);
         }
     }
 
     private void checkOwner(String email) {
         String currentUserEmail = JwtAuthenticationFilter.getCurrentUserEmail();
         if (!email.equals(currentUserEmail)) {
-            log.error("User not authorized to execute payment. Owner payment = {}, current user = {}", email, currentUserEmail);
+            log.error(
+                    "User not authorized to execute payment. Owner payment = {}, current user = {}",
+                    email,
+                    currentUserEmail);
             throw new UnauthorizedAccessException("User not authorized to execute payment");
         }
     }

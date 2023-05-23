@@ -1,11 +1,17 @@
 package com.example.FlightTicketProject.controller;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.example.FlightTicketProject.dto.UserDto;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.entity.UserRole;
 import com.example.FlightTicketProject.service.UserService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,43 +25,34 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles(profiles = "test")
 class UserControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private ObjectMapper objectMapper;
 
-    @MockBean
-    private UserService userService;
+    @MockBean private UserService userService;
 
     @Test
     void testShouldFindAllUsers() throws Exception {
-        List<UserDto> expectedUsersDto = List.of(
-                new UserDto(1L, "Test", "Test", "test@gmail.com", "test", UserRole.USER)
-        );
+        List<UserDto> expectedUsersDto =
+                List.of(new UserDto(1L, "Test", "Test", "test@gmail.com", "test", UserRole.USER));
 
-        List<User> expectedUsers = List.of(
-                expectedUsersDto.get(0).toEntity()
-        );
+        List<User> expectedUsers = List.of(expectedUsersDto.get(0).toEntity());
 
         when(userService.findAll()).thenReturn(expectedUsers);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/users"))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult result =
+                mockMvc.perform(MockMvcRequestBuilders.get("/api/users"))
+                        .andExpect(status().isOk())
+                        .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
-        List<UserDto> users = objectMapper.readValue(responseBody, new TypeReference<List<UserDto>>(){});
+        List<UserDto> users =
+                objectMapper.readValue(responseBody, new TypeReference<List<UserDto>>() {});
 
         assertEquals(expectedUsersDto, users);
     }
@@ -71,12 +68,13 @@ class UserControllerTest {
 
         when(userService.findById(expectedId)).thenReturn(expectedUser);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/users/{userId}", expectedId))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult result =
+                mockMvc.perform(MockMvcRequestBuilders.get("/api/users/{userId}", expectedId))
+                        .andExpect(status().isOk())
+                        .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
-        UserDto userDto = objectMapper.readValue(responseBody, new TypeReference<UserDto>(){});
+        UserDto userDto = objectMapper.readValue(responseBody, new TypeReference<UserDto>() {});
 
         assertEquals(expectedUsersDto, userDto);
     }
@@ -90,12 +88,13 @@ class UserControllerTest {
 
         when(userService.findByEmail()).thenReturn(expectedUser);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/users/info"))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult result =
+                mockMvc.perform(MockMvcRequestBuilders.get("/api/users/info"))
+                        .andExpect(status().isOk())
+                        .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
-        UserDto userDto = objectMapper.readValue(responseBody, new TypeReference<UserDto>(){});
+        UserDto userDto = objectMapper.readValue(responseBody, new TypeReference<UserDto>() {});
 
         assertEquals(expectedUsersDto, userDto);
     }
@@ -116,14 +115,16 @@ class UserControllerTest {
 
         when(userService.save(any(User.class))).thenReturn(expectedUser);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isCreated())
-                .andReturn();
+        MvcResult result =
+                mockMvc.perform(
+                                MockMvcRequestBuilders.post("/api/users")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(requestBody))
+                        .andExpect(status().isCreated())
+                        .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
-        UserDto userDto = objectMapper.readValue(responseBody, new TypeReference<UserDto>(){});
+        UserDto userDto = objectMapper.readValue(responseBody, new TypeReference<UserDto>() {});
 
         assertEquals(expectedUserDto, userDto);
     }

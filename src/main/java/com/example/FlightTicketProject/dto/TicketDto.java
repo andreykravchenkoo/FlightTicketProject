@@ -1,6 +1,7 @@
 package com.example.FlightTicketProject.dto;
 
 import com.example.FlightTicketProject.entity.Ticket;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,10 +26,6 @@ public class TicketDto {
     private String seat;
 
     public Ticket toEntity() {
-        return Ticket.builder()
-                .id(this.id)
-                .owner(this.owner)
-                .seat(this.seat)
-                .build();
+        return Ticket.builder().id(this.id).owner(this.owner).seat(this.seat).build();
     }
 }

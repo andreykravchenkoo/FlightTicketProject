@@ -3,18 +3,22 @@ package com.example.FlightTicketProject.controller;
 import com.example.FlightTicketProject.dto.UserDto;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.service.UserService;
+
 import io.swagger.annotations.Api;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
 @RequiredArgsConstructor
-@Api("User controller")
+@Api(tags = "User controller")
 @RequestMapping("/api/users")
 @RestController
 public class UserController {
@@ -23,9 +27,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<UserDto> usersDto = userService.findAll().stream()
-                .map(User::toDto)
-                .toList();
+        List<UserDto> usersDto = userService.findAll().stream().map(User::toDto).toList();
 
         return ResponseEntity.ok(usersDto);
     }
