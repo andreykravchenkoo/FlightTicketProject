@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.FlightTicketProject.dto.AirportInfoDto;
 import com.example.FlightTicketProject.dto.FlightDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
@@ -42,7 +41,7 @@ class GoflightlabsClientServiceTest {
     }
 
     @Test
-    void testShouldFindFlightsByFilter() throws JsonProcessingException {
+    void testShouldFindFlightsByFilter() {
         String adults = "1";
         String origin = "LOND";
         String destination = "MAD";
@@ -71,7 +70,7 @@ class GoflightlabsClientServiceTest {
     }
 
     @Test
-    void testShouldFindAirportByCity() throws JsonProcessingException {
+    void testShouldFindAirportByCity() {
         String city = "berlin";
 
         wireMockServer.stubFor(

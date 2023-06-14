@@ -1,6 +1,6 @@
 package com.example.FlightTicketProject.security.service.impl;
 
-import com.example.FlightTicketProject.exception.ResourceNotFound;
+import com.example.FlightTicketProject.exception.ResourceNotFoundException;
 import com.example.FlightTicketProject.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         return userRepository
                 .findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFound("User by email = " + email + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User by email = " + email + " not found"));
     }
 }

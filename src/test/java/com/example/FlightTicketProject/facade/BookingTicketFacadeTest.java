@@ -5,7 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.example.FlightTicketProject.entity.*;
-import com.example.FlightTicketProject.exception.ResourceNotFound;
+import com.example.FlightTicketProject.exception.ResourceNotFoundException;
 import com.example.FlightTicketProject.service.FlightService;
 import com.example.FlightTicketProject.service.PaymentService;
 import com.example.FlightTicketProject.service.TicketService;
@@ -82,10 +82,10 @@ class BookingTicketFacadeTest {
         String expectedErrorMessage = "Flight with ID = " + expectedFlightId + " will not be found";
 
         when(flightService.findById(expectedFlightId))
-                .thenThrow(new ResourceNotFound(expectedErrorMessage));
-        ResourceNotFound exception =
+                .thenThrow(new ResourceNotFoundException(expectedErrorMessage));
+        ResourceNotFoundException exception =
                 assertThrows(
-                        ResourceNotFound.class,
+                        ResourceNotFoundException.class,
                         () -> bookingTicketFacade.bookTicket(expectedFlightId, expectedSeat));
 
         assertEquals(expectedErrorMessage, exception.getLocalizedMessage());

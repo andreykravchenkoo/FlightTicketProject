@@ -9,7 +9,7 @@ import com.example.FlightTicketProject.dto.request.RegisterRequestDto;
 import com.example.FlightTicketProject.dto.response.AuthenticationResponseDto;
 import com.example.FlightTicketProject.entity.User;
 import com.example.FlightTicketProject.entity.UserRole;
-import com.example.FlightTicketProject.exception.ResourceNotFound;
+import com.example.FlightTicketProject.exception.ResourceNotFoundException;
 import com.example.FlightTicketProject.security.service.AuthenticationService;
 import com.example.FlightTicketProject.security.service.token.JwtTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -116,7 +116,7 @@ class SecurityConfigurationTest {
 
         when(authenticationService.authenticate(expectedRequestDto))
                 .thenThrow(
-                        new ResourceNotFound(
+                        new ResourceNotFoundException(
                                 "User by email = " + expectedRequestDto.getEmail() + " not found"));
 
         MvcResult result =

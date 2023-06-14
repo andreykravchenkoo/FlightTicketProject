@@ -1,7 +1,7 @@
 package com.example.FlightTicketProject.service.impl;
 
 import com.example.FlightTicketProject.entity.Ticket;
-import com.example.FlightTicketProject.exception.ResourceNotFound;
+import com.example.FlightTicketProject.exception.ResourceNotFoundException;
 import com.example.FlightTicketProject.repository.TicketRepository;
 import com.example.FlightTicketProject.security.configuration.JwtAuthenticationFilter;
 import com.example.FlightTicketProject.service.TicketService;
@@ -29,7 +29,7 @@ public class TicketServiceImpl implements TicketService {
                 .findById(ticketId)
                 .orElseThrow(
                         () ->
-                                new ResourceNotFound(
+                                new ResourceNotFoundException(
                                         "Ticket with ID = " + ticketId + " will not be found"));
     }
 

@@ -77,8 +77,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ResourceNotFound.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFound exception) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException exception) {
         ErrorResponse errorResponse =
                 new ErrorResponse(
                         new Date(),
